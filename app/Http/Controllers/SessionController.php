@@ -34,7 +34,7 @@ class SessionController extends Controller
             'password'=>$request->password
         ];
         if (Auth::attempt($infologin)){
-            return redirect('departemen')->with('Success','Berhasil Login');
+            return redirect('jabatan')->with('Success','Berhasil Login');
         } else {
             return redirect('sesi')->with('Success','Username Dan Password Tidak Valid');
         }
