@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
+        Schema::create('jabatan', function (Blueprint $table) {
+            $table->id(); // ini auto_increment + primary key
+            $table->string('nama_jabatan');
             $table->timestamps();
-            $table->text('content');
-            $table->morphs('commentable'); // Polymorphic relationship
         });
+        
     }
 
     /**
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('jabatan');
     }
 };

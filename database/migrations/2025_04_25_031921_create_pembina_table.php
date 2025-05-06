@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teachers', function (Blueprint $table) {
-            $table->id();
+        Schema::create('pembina', function (Blueprint $table) {
+            $table->string('nip')->primary(); // jadi primary key
+            $table->string('nama_pembina');
+            $table->unsignedBigInteger('id_ekskul');
             $table->timestamps();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->foreignId('position_id')->constrained();
         });
+        
     }
 
     /**
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teachers');
+        Schema::dropIfExists('pembina');
     }
 };

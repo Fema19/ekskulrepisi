@@ -1,6 +1,22 @@
-@extends('layouts.app')
-
+@extends('layouts/app')
 @section('content')
-    <h1>Welcome to the Dashboard</h1>
-    <p>This is the main content area.</p>
+    <div class="row">
+        <h3>Yokoso</h3>
+        <!-- Earnings (Monthly) Card Example -->
+    </div>
+
+    <!-- Content Row -->
+
+    <div class="row">
+
+        <!-- Area Chart -->
+
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Content Column -->
+
+    </div>
 @endsection
