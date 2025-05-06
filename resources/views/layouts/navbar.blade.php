@@ -163,7 +163,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Fachry</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Atmin</span>
                 <img class="img-profile rounded-circle" src="https://i.pinimg.com/736x/aa/49/80/aa49807517362838fe91515ed77b7d36.jpg">
             </a>
             <!-- Dropdown - User Information -->

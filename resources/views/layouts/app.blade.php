@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Facrud</title>
+    <title>Admin Ekskul</title>
 
     <!-- Custom fonts for this template-->
 
