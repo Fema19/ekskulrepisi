@@ -2,63 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ekskul;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EkskulController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $ekskul = Ekskul::all();
+        return view('ekskul.index', compact('ekskul'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('ekskul.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_ekskul' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'logo' => 'nullable|image|max:2048',
+        ]);
+
+        $logo = null;
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo')->store('logos', 'public');
+        }
+
+        Ekskul::create([
+            'nama_ekskul' => $request->nama_ekskul,
+            'deskripsi' => $request->deskripsi,
+            'logo' => $logo,
+        ]);
+
+        return redirect()->route('ekskul.index')->with('success', 'Ekskul berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $ekskul = Ekskul::findOrFail($id);
+        return view('ekskul.edit', compact('ekskul'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_ekskul' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'logo' => 'nullable|image|max:2048',
+        ]);
+
+        $ekskul = Ekskul::findOrFail($id);
+
+        $logo = $ekskul->logo;
+        if ($request->hasFile('logo')) {
+            if ($logo) Storage::disk('public')->delete($logo);
+            $logo = $request->file('logo')->store('logos', 'public');
+        }
+
+        $ekskul->update([
+            'nama_ekskul' => $request->nama_ekskul,
+            'deskripsi' => $request->deskripsi,
+            'logo' => $logo,
+        ]);
+
+        return redirect()->route('ekskul.index')->with('success', 'Ekskul berhasil diperbarui.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $ekskul = Ekskul::findOrFail($id);
+        if ($ekskul->logo) Storage::disk('public')->delete($ekskul->logo);
+        $ekskul->delete();
+        return redirect()->route('ekskul.index')->with('success', 'Ekskul berhasil dihapus.');
     }
 }
