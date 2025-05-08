@@ -3,6 +3,7 @@
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\EkskulController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\KegiatanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,8 @@ Route::get('/ekskul', function () {
 // CRUD jabatan
 Route::resource('jabatan', JabatanController::class);
 Route::resource('ekskul', EkskulController::class);
+
+Route::resource('kegiatan', KegiatanController::class);
 
 // Login dan logout
 Route::get('/sesi', [SessionController::class, 'index']);

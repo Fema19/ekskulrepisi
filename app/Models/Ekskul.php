@@ -10,4 +10,6 @@ class Ekskul extends Model
     use HasFactory;
 
     protected $fillable = ['nama_ekskul', 'deskripsi', 'logo'];
+
+
 }

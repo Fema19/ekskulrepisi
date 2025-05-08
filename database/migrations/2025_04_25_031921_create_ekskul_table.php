@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 return new class extends Migration
 {
     /**
@@ -15,16 +16,19 @@ return new class extends Migration
             $table->id();
             $table->string('nama_ekskul');
             $table->text('deskripsi')->nullable();
-            $table->string('foto')->nullable(); // Ganti logo menjadi foto
+            $table->string('logo')->nullable(); // Ganti dari 'foto' ke 'logo'
+
             $table->timestamps();
         });
     }
+
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('ekskul');
+        Schema::dropIfExists('ekskuls');
     }
 };

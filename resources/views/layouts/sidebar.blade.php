@@ -30,7 +30,13 @@
             <span>Ekskul</span></a>
     </li>
 
-    
+    <li class="nav-item active">
+        <a class="nav-link" href="{{route('kegiatan.index')}}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Kegiatan</span></a>
+    </li>
+
+
 
     <!-- Divider -->
 
@@ -98,7 +104,7 @@
         color: #000;
     }
 
-    body.light-mode .sidebar .nav-link, 
+    body.light-mode .sidebar .nav-link,
     body.light-mode .sidebar .sidebar-brand-text {
         color: #000;
     }
