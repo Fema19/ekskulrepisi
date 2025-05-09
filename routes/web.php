@@ -5,7 +5,7 @@ use App\Http\Controllers\EkskulController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PembinaController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\AnggotaController; // Tambahkan ini untuk AnggotaController
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,14 +27,21 @@ Route::get('/ekskul', function () {
     return view('ekskul/index');
 });
 
-Route::get('/test', [TestController::class, 'test']);
-
 // CRUD jabatan
 Route::resource('jabatan', JabatanController::class);
+
+// CRUD ekskul
 Route::resource('ekskul', EkskulController::class);
 
+// CRUD kegiatan
 Route::resource('kegiatan', KegiatanController::class);
+
+// CRUD pembina
 Route::resource('pembina', PembinaController::class);
+
+// CRUD anggota (Tambahkan ini untuk Anggota)
+Route::resource('anggota', AnggotaController::class);
+
 // Login dan logout
 Route::get('/sesi', [SessionController::class, 'index']);
 Route::post('/sesi/login', [SessionController::class, 'login']);

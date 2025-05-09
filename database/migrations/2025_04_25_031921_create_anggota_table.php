@@ -12,17 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('anggota', function (Blueprint $table) {
-            $table->id(); // auto_increment dan primary key
-            $table->string('nisn')->unique(); // jadikan unik, tapi bukan primary key
+            $table->id(); // auto_increment + primary key
+            $table->string('nisn')->unique(); // NISN unik
             $table->string('nama_anggota');
-            $table->unsignedBigInteger('id_ekskul');
-            $table->unsignedBigInteger('id_jabatan');
+            $table->unsignedBigInteger('id_ekskul'); // Foreign key ke tabel ekskul
+            $table->unsignedBigInteger('id_jabatan'); // Foreign key ke tabel jabatan
             $table->string('generasi');
             $table->string('jurusan');
             $table->enum('status', ['aktif', 'nonaktif']);
             $table->timestamps();
+
+            // Foreign key constraints
+            $table->foreign('id_ekskul')->references('id')->on('ekskuls')->onDelete('cascade');
+            $table->foreign('id_jabatan')->references('id')->on('jabatan')->onDelete('cascade');
         });
-        
     }
 
     /**

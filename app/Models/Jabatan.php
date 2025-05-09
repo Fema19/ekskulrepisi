@@ -9,8 +9,12 @@ class Jabatan extends Model
 {
     use HasFactory;
 
-    protected $table = 'jabatan'; // default Laravel pakai 'jabatans', kita override
+    protected $table = 'jabatan'; // Nama tabel
+    protected $fillable = ['nama_jabatan']; // Kolom yang dapat diisi
 
-    protected $fillable = ['nama_jabatan'];
+    // Relasi ke tabel anggota
+    public function anggota()
+    {
+        return $this->hasMany(Anggota::class, 'id_jabatan'); // Anggota memiliki foreign key id_jabatan
+    }
 }
-
