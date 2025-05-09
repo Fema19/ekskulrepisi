@@ -36,6 +36,13 @@
             <span>Kegiatan</span></a>
     </li>
 
+    <li class="nav-item active">
+        <a class="nav-link" href="{{route('pembina.index')}}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Pembina</span></a>
+    </li>
+
+
 
 
     <!-- Divider -->

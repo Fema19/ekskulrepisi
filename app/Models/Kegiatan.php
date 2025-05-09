@@ -17,4 +17,9 @@ class Kegiatan extends Model
         'deskripsi',
         'foto',
     ];
+
+    public function ekskul()
+{
+    return $this->belongsTo(Ekskul::class);
+}
 }
