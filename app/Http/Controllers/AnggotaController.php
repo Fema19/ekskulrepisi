@@ -6,6 +6,7 @@ use App\Models\Anggota;
 use App\Models\Ekskul;
 use App\Models\Jabatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnggotaController extends Controller
 {
@@ -31,13 +32,18 @@ class AnggotaController extends Controller
             'nisn' => 'required|unique:anggota,nisn|max:20',
             'nama_anggota' => 'required|string|max:255',
             'id_ekskul' => 'required|exists:ekskuls,id',
-            'id_jabatan' => 'required|exists:jabatan,id', // Validasi untuk tabel jabatan
+            'id_jabatan' => 'required|exists:jabatan,id',
             'generasi' => 'required|string|max:255',
             'jurusan' => 'required|string|max:255',
             'status' => 'required|in:aktif,nonaktif',
+            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Simpan data ke database
+        $fotoPath = null;
+        if ($request->hasFile('foto_profil')) {
+            $fotoPath = $request->file('foto_profil')->store('foto_profil', 'public');
+        }
+
         Anggota::create([
             'nisn' => $request->nisn,
             'nama_anggota' => $request->nama_anggota,
@@ -46,6 +52,7 @@ class AnggotaController extends Controller
             'generasi' => $request->generasi,
             'jurusan' => $request->jurusan,
             'status' => $request->status,
+            'foto_profil' => $fotoPath,
         ]);
 
         return redirect()->route('anggota.index')->with('success', 'Data anggota berhasil ditambahkan.');
@@ -55,8 +62,8 @@ class AnggotaController extends Controller
     public function edit($id)
     {
         $anggota = Anggota::findOrFail($id);
-        $ekskul = Ekskul::all(); // Ambil semua data ekskul
-        $jabatan = Jabatan::all(); // Ambil semua data jabatan
+        $ekskul = Ekskul::all();
+        $jabatan = Jabatan::all();
         return view('anggota.edit', compact('anggota', 'ekskul', 'jabatan'));
     }
 
@@ -66,15 +73,23 @@ class AnggotaController extends Controller
         $request->validate([
             'nama_anggota' => 'required|string|max:255',
             'id_ekskul' => 'required|exists:ekskuls,id',
-            'id_jabatan' => 'required|exists:jabatan,id', // Validasi untuk tabel jabatan
+            'id_jabatan' => 'required|exists:jabatan,id',
             'generasi' => 'required|string|max:255',
             'jurusan' => 'required|string|max:255',
             'status' => 'required|in:aktif,nonaktif',
+            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $anggota = Anggota::findOrFail($id);
 
-        // Update data
+        if ($request->hasFile('foto_profil')) {
+            if ($anggota->foto_profil && Storage::disk('public')->exists($anggota->foto_profil)) {
+                Storage::disk('public')->delete($anggota->foto_profil);
+            }
+            $fotoPath = $request->file('foto_profil')->store('foto_profil', 'public');
+            $anggota->foto_profil = $fotoPath;
+        }
+
         $anggota->update([
             'nama_anggota' => $request->nama_anggota,
             'id_ekskul' => $request->id_ekskul,
@@ -82,6 +97,7 @@ class AnggotaController extends Controller
             'generasi' => $request->generasi,
             'jurusan' => $request->jurusan,
             'status' => $request->status,
+            'foto_profil' => $anggota->foto_profil,
         ]);
 
         return redirect()->route('anggota.index')->with('success', 'Data anggota berhasil diperbarui.');
@@ -91,6 +107,12 @@ class AnggotaController extends Controller
     public function destroy($id)
     {
         $anggota = Anggota::findOrFail($id);
+
+        // Hapus foto jika ada
+        if ($anggota->foto_profil && Storage::disk('public')->exists($anggota->foto_profil)) {
+            Storage::disk('public')->delete($anggota->foto_profil);
+        }
+
         $anggota->delete();
 
         return redirect()->route('anggota.index')->with('success', 'Data anggota berhasil dihapus.');

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('anggota.store') }}" method="POST">
+    <form action="{{ route('anggota.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-12">
@@ -69,6 +69,14 @@
                                 <option value="nonaktif">Nonaktif</option>
                             </select>
                             @error('status')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="foto_profil">Foto Profil</label>
+                            <input type="file" class="form-control-file" name="foto_profil" accept="image/*">
+                            @error('foto_profil')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

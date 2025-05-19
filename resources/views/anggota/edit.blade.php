@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('anggota.update', $anggota->id) }}" method="POST">
+    <form action="{{ route('anggota.update', $anggota->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="row">
@@ -13,7 +13,10 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="nisn">NISN</label>
-                            <input type="text" class="form-control" name="nisn" value="{{ old('nisn', $anggota->nisn) }}" readonly>
+                            <input type="text" class="form-control" name="nisn" value="{{ old('nisn', $anggota->nisn) }}" required>
+                            @error('nisn')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="nama_anggota">Nama Anggota</label>
@@ -27,7 +30,7 @@
                             <select class="form-control" name="id_ekskul" required>
                                 <option value="">Pilih Ekskul</option>
                                 @foreach ($ekskul as $item)
-                                    <option value="{{ $item->id }}" {{ old('id_ekskul', $anggota->id_ekskul) == $item->id ? 'selected' : '' }}>
+                                    <option value="{{ $item->id }}" {{ $item->id == old('id_ekskul', $anggota->id_ekskul) ? 'selected' : '' }}>
                                         {{ $item->nama_ekskul }}
                                     </option>
                                 @endforeach
@@ -41,7 +44,7 @@
                             <select class="form-control" name="id_jabatan" required>
                                 <option value="">Pilih Jabatan</option>
                                 @foreach ($jabatan as $item)
-                                    <option value="{{ $item->id }}" {{ old('id_jabatan', $anggota->id_jabatan) == $item->id ? 'selected' : '' }}>
+                                    <option value="{{ $item->id }}" {{ $item->id == old('id_jabatan', $anggota->id_jabatan) ? 'selected' : '' }}>
                                         {{ $item->nama_jabatan }}
                                     </option>
                                 @endforeach
@@ -74,6 +77,18 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+
+                        <div class="form-group">
+                            <label for="foto_profil">Foto Profil</label><br>
+                            @if ($anggota->foto_profil)
+                                <img src="{{ asset('storage/' . $anggota->foto_profil) }}" alt="Foto Profil" width="100" class="mb-2 rounded shadow">
+                            @endif
+                            <input type="file" class="form-control-file" name="foto_profil" accept="image/*">
+                            @error('foto_profil')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>

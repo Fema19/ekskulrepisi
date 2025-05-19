@@ -12,14 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ekskuls', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_ekskul');
-            $table->text('deskripsi')->nullable();
-            $table->string('logo')->nullable(); // Ganti dari 'foto' ke 'logo'
+       Schema::create('ekskuls', function (Blueprint $table) {
+    $table->id(); // unsignedBigInteger dan primary
+    $table->string('nama_ekskul');
+    $table->text('deskripsi')->nullable();
+    $table->string('logo')->nullable();
+    $table->timestamps();
+});
 
-            $table->timestamps();
-        });
     }
 
 

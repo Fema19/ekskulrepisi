@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jabatan', function (Blueprint $table) {
-            $table->id(); // ini auto_increment + primary key
-            $table->string('nama_jabatan');
-            $table->timestamps();
-        });
+    $table->id(); // unsignedBigInteger dan primary
+    $table->string('nama_jabatan');
+    $table->timestamps();
+});
+
         
     }
 

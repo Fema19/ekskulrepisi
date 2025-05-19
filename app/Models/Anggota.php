@@ -9,7 +9,7 @@ class Anggota extends Model
 {
     use HasFactory;
 
-    protected $table = 'anggota'; // Nama tabel
+    protected $table = 'anggota';
     protected $fillable = [
         'nisn',
         'nama_anggota',
@@ -18,15 +18,14 @@ class Anggota extends Model
         'generasi',
         'jurusan',
         'status',
+        'foto_profil',
     ];
 
-    // Relasi ke tabel ekskul
     public function ekskul()
     {
         return $this->belongsTo(Ekskul::class, 'id_ekskul');
     }
 
-    // Relasi ke tabel jabatan
     public function jabatan()
     {
         return $this->belongsTo(Jabatan::class, 'id_jabatan');
