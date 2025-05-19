@@ -5,6 +5,7 @@ use App\Http\Controllers\EkskulController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PembinaController;
+use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\AnggotaController; // Tambahkan ini untuk AnggotaController
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Saat buka localhost:8000 langsung ke halaman login
-Route::get('/', [SessionController::class, 'index'])->name('login');
+Route::get('/', [FrontEndController::class, 'index'])->name('frontend');
+
+
+Route::get('/fr', [FrontEndController::class, 'index'])->name('frontend');
+
 
 // Halaman dashboard (akses manual ke /dashboard)
 Route::get('/dashboard', function () {
@@ -26,6 +31,7 @@ Route::get('/dashboard', function () {
 Route::get('/ekskul', function () {
     return view('ekskul/index');
 });
+
 
 // CRUD jabatan
 Route::resource('jabatan', JabatanController::class);
