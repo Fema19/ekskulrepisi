@@ -19,6 +19,7 @@ class Pembina extends Model
         'nama_pembina',
         'id_ekskul',
         'foto_profil',
+        'deskripsi', // ← tambahkan ini
     ];
 
     // Relasi ke tabel ekskul

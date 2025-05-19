@@ -1,4 +1,3 @@
-<!-- resources/views/pembina/index.blade.php -->
 @extends('layouts.app')
 
 @section('content')
@@ -24,6 +23,7 @@
                                 <th>Nama Pembina</th>
                                 <th>Ekskul</th>
                                 <th>Foto Profil</th>
+                                <th>Deskripsi</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -42,6 +42,7 @@
                                             <span class="text-muted">Tidak ada foto</span>
                                         @endif
                                     </td>
+                                    <td>{{ $item->deskripsi ?? '-' }}</td>
                                     <td>
                                         <a href="{{ route('pembina.edit', $item->nip) }}" class="btn btn-sm btn-primary">Edit</a>
 

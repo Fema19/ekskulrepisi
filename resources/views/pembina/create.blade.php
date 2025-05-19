@@ -32,6 +32,10 @@
                             <label for="foto_profil">Foto Profil</label>
                             <input type="file" class="form-control" name="foto_profil">
                         </div>
+                        <div class="form-group">
+                            <label for="deskripsi">Deskripsi</label>
+                            <textarea class="form-control" name="deskripsi" rows="4">{{ old('deskripsi') }}</textarea>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary">Simpan</button>

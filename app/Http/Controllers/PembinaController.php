@@ -31,6 +31,7 @@ class PembinaController extends Controller
             'nama_pembina' => 'required|string|max:255',
             'id_ekskul' => 'required|exists:ekskuls,id', // diperbaiki: ekskul -> ekskuls
             'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'deskripsi' => 'nullable|string', // Tambahan validasi
         ]);
 
         $fotoProfilPath = null;
@@ -43,6 +44,7 @@ class PembinaController extends Controller
             'nama_pembina' => $request->nama_pembina,
             'id_ekskul' => $request->id_ekskul,
             'foto_profil' => $fotoProfilPath,
+            'deskripsi' => $request->deskripsi, // Tambahan field
         ]);
 
         return redirect()->route('pembina.index')->with('success', 'Data pembina berhasil ditambahkan.');
@@ -58,31 +60,34 @@ class PembinaController extends Controller
 
     // Update Data
     public function update(Request $request, $nip)
-{
-    $request->validate([
-        'nama_pembina' => 'required|string|max:255',
-        'id_ekskul' => 'required|exists:ekskuls,id', // diperbaiki: ekskul -> ekskuls
-        'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    {
+        $request->validate([
+            'nama_pembina' => 'required|string|max:255',
+            'id_ekskul' => 'required|exists:ekskuls,id', // diperbaiki: ekskul -> ekskuls
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'deskripsi' => 'nullable|string', // Tambahan validasi
+        ]);
 
-    $pembina = Pembina::findOrFail($nip);
+        $pembina = Pembina::findOrFail($nip);
 
-    if ($request->hasFile('foto_profil')) {
-        if ($pembina->foto_profil) {
-            Storage::disk('public')->delete($pembina->foto_profil);
+        if ($request->hasFile('foto_profil')) {
+            if ($pembina->foto_profil) {
+                Storage::disk('public')->delete($pembina->foto_profil);
+            }
+
+            $fotoProfilPath = $request->file('foto_profil')->store('foto_profil', 'public');
+            $pembina->update(['foto_profil' => $fotoProfilPath]);
         }
 
-        $fotoProfilPath = $request->file('foto_profil')->store('foto_profil', 'public');
-        $pembina->update(['foto_profil' => $fotoProfilPath]);
+        $pembina->update([
+            'nama_pembina' => $request->nama_pembina,
+            'id_ekskul' => $request->id_ekskul,
+            'deskripsi' => $request->deskripsi, // Tambahan update field
+        ]);
+
+        return redirect()->route('pembina.index')->with('success', 'Data pembina berhasil diperbarui.');
     }
 
-    $pembina->update([
-        'nama_pembina' => $request->nama_pembina,
-        'id_ekskul' => $request->id_ekskul,
-    ]);
-
-    return redirect()->route('pembina.index')->with('success', 'Data pembina berhasil diperbarui.');
-}
     // Hapus Data
     public function destroy($nip)
     {
