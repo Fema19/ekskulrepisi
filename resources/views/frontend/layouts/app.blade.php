@@ -12,7 +12,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
     <style>
-        /* Fade-in animation */
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -32,7 +31,6 @@
             animation: fadeIn 1s ease-in-out;
         }
 
-        /* Navbar styling */
         .navbar {
             background: linear-gradient(90deg, #fd0d0d, #f21f10);
         }
@@ -45,17 +43,20 @@
             color: #d6d6f7 !important;
         }
 
-        /* Header styling */
         header {
             background-color: #fd0d0d;
             color: white;
-            padding: 1.5rem 0;
+            padding: 2rem 0 1.5rem;
             text-align: center;
             box-shadow: 0 4px 10px rgb(13 110 253 / 0.3);
             margin-bottom: 2.5rem;
         }
 
-        /* Typing animation */
+        header img {
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
         .typing-text {
             border-right: .15em solid #fff;
             white-space: nowrap;
@@ -74,7 +75,6 @@
             50% { border-color: transparent }
         }
 
-        /* Footer */
         footer {
             background-color: #0d6efd;
             color: white;
@@ -85,7 +85,6 @@
             font-size: 0.9rem;
         }
 
-        /* Table enhancements */
         .table thead th {
             vertical-align: middle;
             background-color: #0dcdfd;
@@ -115,8 +114,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/sesi') }}">
-                <i class="fa-solid fa-school"></i> Ekskul Sekolah
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url('/sesi') }}">
+                <img src="{{ asset('storage/logo-sekolah1.png') }}" alt="Logo Sekolah" style="height: 40px;">
+                <span> Ekskul Sekolah</span>
             </a>
             <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="fa-solid fa-bars"></i>
@@ -135,6 +135,7 @@
 
     <!-- Header -->
     <header>
+        <img src="{{ asset('storage/logo-sekolah.png') }}" alt="Logo Sekolah">
         <h1 class="fw-bold typing-text" data-text="Website Ekstrakurikuler Sekolah"></h1>
         <p class="lead typing-text" data-text="Temukan informasi lengkap tentang kegiatan dan anggota ekstrakurikuler kami."></p>
     </header>
@@ -158,7 +159,7 @@
             const texts = document.querySelectorAll(".typing-text");
             texts.forEach((el, i) => {
                 const fullText = el.getAttribute("data-text");
-                el.innerHTML = ""; // Kosongkan dulu
+                el.innerHTML = "";
                 el.style.width = "0";
 
                 setTimeout(() => {
@@ -169,10 +170,10 @@
                             index++;
                         } else {
                             clearInterval(type);
-                            el.style.borderRight = "none"; // Hapus kursor berkedip setelah selesai
+                            el.style.borderRight = "none";
                         }
                     }, 50);
-                }, i * 500); // Delay jika lebih dari satu teks
+                }, i * 500);
             });
         });
     </script>
