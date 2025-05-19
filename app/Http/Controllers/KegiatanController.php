@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
-use App\Models\Ekskul;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,7 +13,7 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $kegiatan = Kegiatan::with(['ekskul'])->get(); // Sudah dengan relasi
+        $kegiatan = Kegiatan::latest()->get();
         return view('kegiatan.index', compact('kegiatan'));
     }
 
@@ -23,8 +22,7 @@ class KegiatanController extends Controller
      */
     public function create()
     {
-          $ekskul = Ekskul::all();
-        return view('kegiatan.create', compact('ekskul'));
+        return view('kegiatan.create');
     }
 
     /**
@@ -37,14 +35,12 @@ class KegiatanController extends Controller
             'tanggal' => 'required|date',
             'deskripsi' => 'nullable|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Validasi foto
-              'id_ekskul' => 'required|exists:ekskuls,id',
         ]);
 
         $kegiatan = new Kegiatan();
         $kegiatan->nama_kegiatan = $request->nama_kegiatan;
         $kegiatan->tanggal = $request->tanggal;
         $kegiatan->deskripsi = $request->deskripsi;
-        
 
         // Menangani upload foto jika ada
         if ($request->hasFile('foto')) {
