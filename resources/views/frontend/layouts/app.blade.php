@@ -33,14 +33,23 @@
 
         .navbar {
             background: linear-gradient(90deg, #fd0d0d, #f21f10);
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
         }
+
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #fff !important;
         }
+
         .navbar-brand:hover {
             color: #d6d6f7 !important;
+        }
+
+        .navbar-brand img {
+            height: 55px;
+            width: auto;
         }
 
         header {
@@ -92,6 +101,7 @@
             text-align: center;
             letter-spacing: 0.05em;
         }
+
         .table tbody tr:hover {
             background-color: #e9f0ff;
             transition: background-color 0.3s ease;
@@ -113,14 +123,19 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url('/sesi') }}">
-                <img src="{{ asset('storage/logo-sekolah1.png') }}" alt="Logo Sekolah" style="height: 40px;">
-                <span> Ekskul Sekolah</span>
+        <div class="container d-flex justify-content-start">
+            <!-- Logo dan Teks di Kiri -->
+            <a class="navbar-brand d-flex align-items-center gap-3 me-auto" href="{{ url('/sesi') }}">
+                <img src="{{ asset('storage/logo-sekolah1.png') }}" alt="Logo Sekolah">
+                <span>Ekskul Sekolah</span>
             </a>
+
+            <!-- Toggle Button untuk Mobile -->
             <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <i class="fa-solid fa-bars"></i>
             </button>
+
+            <!-- Menu Navigasi -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto fw-semibold">
                     <li class="nav-item"><a class="nav-link text-white" href="{{ route('anggota.index') }}">Anggota</a></li>
@@ -150,7 +165,7 @@
         <small>&copy; {{ date('Y') }} Sekolah Kami. All rights reserved.</small>
     </footer>
 
-    <!-- Bootstrap Bundle -->
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Typing Animation Script -->
