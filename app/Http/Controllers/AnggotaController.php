@@ -10,14 +10,23 @@ use Illuminate\Support\Facades\Storage;
 
 class AnggotaController extends Controller
 {
-    // Tampilkan semua data anggota
-    public function index()
+    // Tampilkan semua data anggota dengan filter generasi
+    public function index(Request $request)
     {
-        $anggota = Anggota::with(['ekskul', 'jabatan'])->get(); // Sudah dengan relasi
-        return view('anggota.index', compact('anggota'));
+        $selectedGenerasi = $request->get('generasi');
+
+        $anggota = Anggota::with(['ekskul', 'jabatan'])
+            ->when($selectedGenerasi, function ($query, $selectedGenerasi) {
+                return $query->where('generasi', $selectedGenerasi);
+            })
+            ->get();
+
+        $generasiList = Anggota::select('generasi')->distinct()->orderBy('generasi')->pluck('generasi');
+
+        return view('anggota.index', compact('anggota', 'generasiList', 'selectedGenerasi'));
     }
 
-    // Tampilkan form tambah anggota
+    // Method lainnya tetap sama seperti semula...
     public function create()
     {
         $ekskul = Ekskul::all();
@@ -25,7 +34,6 @@ class AnggotaController extends Controller
         return view('anggota.create', compact('ekskul', 'jabatan'));
     }
 
-    // Simpan data anggota baru
     public function store(Request $request)
     {
         $request->validate([
@@ -58,7 +66,6 @@ class AnggotaController extends Controller
         return redirect()->route('anggota.index')->with('success', 'Data anggota berhasil ditambahkan.');
     }
 
-    // Tampilkan form edit anggota
     public function edit($id)
     {
         $anggota = Anggota::findOrFail($id);
@@ -67,7 +74,6 @@ class AnggotaController extends Controller
         return view('anggota.edit', compact('anggota', 'ekskul', 'jabatan'));
     }
 
-    // Perbarui data anggota
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -82,7 +88,6 @@ class AnggotaController extends Controller
 
         $anggota = Anggota::findOrFail($id);
 
-        // Hapus foto lama jika ada dan diganti
         if ($request->hasFile('foto_profil')) {
             if ($anggota->foto_profil && Storage::disk('public')->exists($anggota->foto_profil)) {
                 Storage::disk('public')->delete($anggota->foto_profil);
@@ -103,7 +108,6 @@ class AnggotaController extends Controller
         return redirect()->route('anggota.index')->with('success', 'Data anggota berhasil diperbarui.');
     }
 
-    // Hapus data anggota
     public function destroy($id)
     {
         $anggota = Anggota::findOrFail($id);

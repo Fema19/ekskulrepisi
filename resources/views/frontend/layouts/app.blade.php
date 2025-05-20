@@ -32,7 +32,7 @@
         }
 
         .navbar {
-            background: linear-gradient(90deg, #fd0d0d, #f21f10);
+            background: linear-gradient(90deg, #fd0d0d, #f21010);
             padding-top: 0.8rem;
             padding-bottom: 0.8rem;
         }

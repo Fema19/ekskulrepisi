@@ -119,7 +119,7 @@
                     {{-- Konten teks di kiri --}}
                     <div class="card-body text-start px-4" style="flex: 1 1 65%;">
                         <h5 class="card-title fw-bold">{{ $p->nama_pembina }}</h5>
-                      
+
 
                         {{-- Deskripsi Pembina --}}
                         @if(!empty($p->deskripsi))
@@ -158,59 +158,85 @@
 
 
 
-    {{-- Bagian Daftar Anggota Ekskul Minimalis --}}
+   {{-- Bagian Daftar Anggota Ekskul Berdasarkan Generasi --}}
 <div class="mb-5">
     <h2 class="fw-bold text-primary text-center display-5 mb-4">Daftar Anggota Ekstrakurikuler</h2>
     <hr class="w-25 mx-auto border-3 border-primary mb-4">
 
-    @if($anggota->isEmpty())
-        <p class="text-center text-muted fst-italic">Belum ada data anggota.</p>
-    @else
-        <div class="row g-4 justify-content-center">
-            @foreach($anggota as $item)
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="card shadow-sm rounded-4 border-0 h-100">
-                        {{-- Foto Profil --}}
-                        @if($item->foto_profil)
-                            <img src="{{ asset('storage/' . $item->foto_profil) }}" alt="{{ $item->nama_anggota }}"
-                                class="card-img-top rounded-top" style="height: 220px; object-fit: cover;">
-                        @else
-                            <div class="d-flex justify-content-center align-items-center bg-secondary text-white rounded-top" style="height: 220px;">
-                                <i class="fa-solid fa-user fa-5x"></i>
+    {{-- Filter Dropdown --}}
+    <div class="text-center mb-4">
+        <form method="GET" action="{{ url()->current() }}">
+            <div class="d-inline-block">
+                <select name="generasi" onchange="this.form.submit()" class="form-select">
+                    <option value="">-- Semua Generasi --</option>
+                    @foreach($generasiList as $gen)
+                        <option value="{{ $gen }}" {{ request('generasi') == $gen ? 'selected' : '' }}>
+                            Generasi {{ $gen }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </form>
+    </div>
+
+    @php
+        $groupedAnggota = $anggota->groupBy('generasi');
+    @endphp
+
+    @forelse ($groupedAnggota as $generasi => $items)
+        <div class="mb-4">
+            <h3 class="text-center text-secondary fw-bold mb-3">Generasi {{ $generasi }}</h3>
+            <div class="row g-4 justify-content-center">
+                @foreach($items as $item)
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card shadow-sm rounded-4 border-0 h-100">
+                            {{-- Foto Profil --}}
+                            @if($item->foto_profil)
+                                <img src="{{ asset('storage/' . $item->foto_profil) }}" alt="{{ $item->nama_anggota }}"
+                                    class="card-img-top rounded-top" style="height: 220px; object-fit: cover;">
+                            @else
+                                <div class="d-flex justify-content-center align-items-center bg-secondary text-white rounded-top" style="height: 220px;">
+                                    <i class="fa-solid fa-user fa-5x"></i>
+                                </div>
+                            @endif
+
+                            <div class="card-body text-center">
+                                {{-- Nama Anggota --}}
+                                <h5 class="card-title fw-bold mb-1" style="font-family: 'Poppins', sans-serif;">
+                                    {{ $item->nama_anggota }}
+                                </h5>
+
+                                {{-- Ekskul & Jabatan --}}
+                                <p class="mb-1">
+                                    <span class="badge bg-info text-dark fs-6 me-1">
+                                        {{ $item->ekskul?->nama_ekskul ?? 'Ekskul tidak tersedia' }}
+                                    </span>
+                                    <span class="badge bg-primary text-white fs-6 text-capitalize">
+                                        {{ $item->jabatan?->nama_jabatan ?? 'Anggota' }}
+                                    </span>
+                                </p>
+
+                                {{-- Status --}}
+                                <p>
+                                    <span class="badge rounded-pill bg-{{ $item->status === 'aktif' ? 'success' : 'secondary' }} px-3 py-2 fs-6">
+                                        {{ ucfirst($item->status) }}
+                                    </span>
+                                </p>
+
+                                {{-- Info Tambahan --}}
+                                <small class="text-muted d-block">Jurusan: {{ $item->jurusan }}</small>
                             </div>
-                        @endif
-
-                        <div class="card-body text-center">
-                            {{-- Nama Anggota --}}
-                            <h5 class="card-title fw-bold mb-1" style="font-family: 'Poppins', sans-serif;">{{ $item->nama_anggota }}</h5>
-
-                            {{-- Ekskul & Jabatan --}}
-                            <p class="mb-1">
-                                <span class="badge bg-info text-dark fs-6 me-1">
-                                    {{ $item->ekskul?->nama_ekskul ?? 'Ekskul tidak tersedia' }}
-                                </span>
-                                <span class="badge bg-primary text-white fs-6 text-capitalize">
-                                    {{ $item->jabatan?->nama_jabatan ?? 'Anggota' }}
-                                </span>
-                            </p>
-
-                            {{-- Status --}}
-                            <p>
-                                <span class="badge rounded-pill bg-{{ $item->status === 'aktif' ? 'success' : 'secondary' }} px-3 py-2 fs-6">
-                                    {{ ucfirst($item->status) }}
-                                </span>
-                            </p>
-
-                            {{-- Info tambahan --}}
-                            <small class="text-muted d-block">Generasi: {{ $item->generasi }}</small>
-                            <small class="text-muted d-block">Jurusan: {{ $item->jurusan }}</small>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
         </div>
-    @endif
+    @empty
+        <p class="text-center text-muted fst-italic">Belum ada data anggota untuk generasi ini.</p>
+    @endforelse
 </div>
+
+
 
 {{-- Section Kegiatan Ekskul --}}
 <style>
