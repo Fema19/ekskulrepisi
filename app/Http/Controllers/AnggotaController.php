@@ -36,7 +36,7 @@ class AnggotaController extends Controller
             'generasi' => 'required|string|max:255',
             'jurusan' => 'required|string|max:255',
             'status' => 'required|in:aktif,nonaktif',
-            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:100000',
         ]);
 
         $fotoPath = null;
@@ -77,7 +77,7 @@ class AnggotaController extends Controller
             'generasi' => 'required|string|max:255',
             'jurusan' => 'required|string|max:255',
             'status' => 'required|in:aktif,nonaktif',
-            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:100000',
         ]);
 
         $anggota = Anggota::findOrFail($id);

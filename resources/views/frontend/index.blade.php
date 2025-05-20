@@ -108,22 +108,26 @@
 {{-- Section Pembina Ekskul --}}
 <div class="mb-5 px-4">
     <h2 class="fw-bold text-primary text-center display-5 mb-4">Daftar Pembina Ekskul</h2>
-    <hr class="w-25 mx-auto border-3 border-primary mb-5">
+    <hr class="w-25 mx-auto border-3 border-primary mb-4">
 
-    <div class="row g-5 justify-content-center"> {{-- justify-content-center untuk tengah --}}
+    <div class="row g-5 justify-content-center">
         @forelse($pembina as $p)
-            <div class="col-12 col-md-10 col-lg-8"> {{-- lebar card diatur agar tidak terlalu lebar --}}
+            <div class="col-12 col-md-10 col-lg-8">
                 <div class="card shadow-sm rounded-4 h-100 border-0 d-flex flex-row align-items-center"
                      style="transition: box-shadow 0.3s ease, transform 0.3s ease; min-height: 250px;">
 
                     {{-- Konten teks di kiri --}}
                     <div class="card-body text-start px-4" style="flex: 1 1 65%;">
                         <h5 class="card-title fw-bold">{{ $p->nama_pembina }}</h5>
-                        <p class="card-text mb-2"><strong>Ekskul:</strong> {{ $p->ekskul?->nama_ekskul ?? '-' }}</p>
                       
+
+                        {{-- Deskripsi Pembina --}}
+                        @if(!empty($p->deskripsi))
+                            <p class="text-muted mt-3" style="font-size: 0.95rem;">{{ $p->deskripsi }}</p>
+                        @endif
                     </div>
 
-                    {{-- Foto di kanan dengan ruang kosong --}}
+                    {{-- Foto di kanan --}}
                     <div style="flex: 0 0 35%; max-width: 35%; height: 250px; overflow: hidden; border-top-right-radius: 1rem; border-bottom-right-radius: 1rem; background-color: #f8f9fa;">
                         @if($p->foto_profil)
                             <img src="{{ asset('storage/' . $p->foto_profil) }}"
@@ -135,7 +139,6 @@
                             </div>
                         @endif
                     </div>
-
                 </div>
             </div>
         @empty
@@ -143,6 +146,7 @@
         @endforelse
     </div>
 </div>
+
 
 <style>
     .card.shadow-sm:hover {
@@ -209,6 +213,36 @@
 </div>
 
 {{-- Section Kegiatan Ekskul --}}
+<style>
+    .card.shadow-sm:hover {
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.25) !important;
+        transform: translateY(-5px);
+        transition: all 0.3s ease;
+    }
+
+    details summary {
+        cursor: pointer;
+        font-weight: 500;
+        margin-top: 8px;
+        list-style: none;
+        color: inherit;
+    }
+
+    details[open] summary::after {
+        content: " (sembunyikan)";
+        font-weight: normal;
+        font-size: 0.9em;
+        color: #6c757d;
+    }
+
+    details:not([open]) summary::after {
+        content: " (baca selengkapnya)";
+        font-weight: normal;
+        font-size: 0.9em;
+        color: #6c757d;
+    }
+</style>
+
 <div class="mb-5">
     <h2 class="fw-bold text-primary text-center display-5 mb-4">Daftar Kegiatan Ekskul</h2>
     <hr class="w-25 mx-auto border-3 border-primary mb-5">
@@ -216,7 +250,8 @@
     <div class="row g-4 justify-content-center">
         @forelse($kegiatan as $keg)
             <div class="col-md-6 col-lg-4">
-                <div class="card shadow rounded-4 h-100 border-0">
+                <div class="card shadow-sm rounded-4 h-100 border-0">
+                    {{-- Gambar --}}
                     @if($keg->foto)
                         <img src="{{ asset('storage/' . $keg->foto) }}"
                              class="card-img-top rounded-top"
@@ -228,19 +263,35 @@
                         </div>
                     @endif
 
+                    {{-- Konten --}}
                     <div class="card-body">
                         <h5 class="card-title fw-semibold">{{ $keg->nama_kegiatan }}</h5>
-                        <p class="card-text text-muted" style="max-height: 5.5em; overflow: hidden;">
-                            {{ $keg->deskripsi ?? 'Tidak ada deskripsi.' }}
-                        </p>
 
+                        @php
+                            $plainText = strip_tags($keg->deskripsi ?? 'Tidak ada deskripsi.');
+                            // Ambil kalimat pertama
+                            preg_match('/^.*?[.!?](\s|$)/', $plainText, $matches);
+                            $firstSentence = $matches[0] ?? $plainText;
+                            $remainingText = trim(str_replace($firstSentence, '', $plainText));
+                        @endphp
+
+                        @if($remainingText)
+                            <p class="text-muted">{{ $firstSentence }}</p>
+                            <details>
+                                <summary class="text-muted">Lanjutkan membaca</summary>
+                                <p class="mt-2 text-muted">{{ $remainingText }}</p>
+                            </details>
+                        @else
+                            <p class="text-muted">{{ $plainText }}</p>
+                        @endif
+
+                        {{-- Tanggal --}}
                         <ul class="list-unstyled small text-muted mt-3 mb-0">
                             <li>
                                 <i class="fa-regular fa-calendar me-2"></i>
                                 <strong>Tanggal:</strong>
                                 {{ $keg->tanggal ? \Carbon\Carbon::parse($keg->tanggal)->translatedFormat('d M Y') : '-' }}
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -250,5 +301,6 @@
         @endforelse
     </div>
 </div>
+
 @endsection
 

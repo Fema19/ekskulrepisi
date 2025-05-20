@@ -30,7 +30,7 @@ class PembinaController extends Controller
             'nip' => 'required|unique:pembina,nip|max:20',
             'nama_pembina' => 'required|string|max:255',
             'id_ekskul' => 'required|exists:ekskuls,id', // diperbaiki: ekskul -> ekskuls
-            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:100000',
             'deskripsi' => 'nullable|string', // Tambahan validasi
         ]);
 
@@ -64,7 +64,7 @@ class PembinaController extends Controller
         $request->validate([
             'nama_pembina' => 'required|string|max:255',
             'id_ekskul' => 'required|exists:ekskuls,id', // diperbaiki: ekskul -> ekskuls
-            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:100000',
             'deskripsi' => 'nullable|string', // Tambahan validasi
         ]);
 
