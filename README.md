@@ -156,8 +156,8 @@ Dan ingat, hidup ini seperti coding: **ada banyak cara untuk menyelesaikan masal
 
 
 ## 🙌 Contributor
-This project is built for educational and ethical purposes. Contributions and improvements are welcome to make it even more secure and helpful.
-you can contribute with creating a fork and pull request or submit a patch via issue.
+Proyek ini dibuat untuk tujuan pendidikan dan etika. Kontribusi dan perbaikan akan diterima untuk membuatnya lebih aman dan bermanfaat. Anda dapat berkontribusi dengan membuat permintaan fork dan pull atau mengirimkan patch melalui issue.
+
 
 <a href="https://github.com/Fema19/ekstrakurikuler/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Fema19/ekstrakurikuler"/>
