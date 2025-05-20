@@ -288,7 +288,7 @@
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
-                    
+
                     if (targetId === '#') {
                         // Scroll to top with smooth behavior
                         window.scrollTo({
