@@ -126,7 +126,7 @@
         <div class="container d-flex justify-content-start">
             <!-- Logo dan Teks di Kiri -->
             <a class="navbar-brand d-flex align-items-center gap-3 me-auto" href="{{ url('/sesi') }}">
-                <img src="{{ asset('storage/logo-sekolah1.png') }}" alt="Logo Sekolah">
+                <img src="{{ asset('/img/logo-sekolah1.png') }}" alt="Logo Sekolah">
                 <span>Ekskul Sekolah</span>
             </a>
 
@@ -150,7 +150,7 @@
 
     <!-- Header -->
     <header>
-        <img src="{{ asset('storage/logo-sekolah.png') }}" alt="Logo Sekolah">
+        <img src="{{ asset('/img/logo-sekolah.png') }}" alt="Logo Sekolah">
         <h1 class="fw-bold typing-text" data-text="Website Ekstrakurikuler Sekolah"></h1>
         <p class="lead typing-text" data-text="Temukan informasi lengkap tentang kegiatan dan anggota ekstrakurikuler kami."></p>
     </header>
