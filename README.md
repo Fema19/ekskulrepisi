@@ -50,13 +50,12 @@ Selamat datang di **Ekskul Management System (EMS)**, sebuah aplikasi berbasis L
 ### 1. Clone Repository
 ```bash
 git clone https://github.com/Fema19/ekstrakurikuler.git
-cd ekskul-management-system
+cd ekstrakurikuler
 ```
 
 ### 2. Install Dependencies
 ```bash
 composer install
-npm install
 ```
 
 ### 3. Konfigurasi Environment
