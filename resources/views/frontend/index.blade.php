@@ -59,7 +59,7 @@
 
         {{-- Logo Sekolah (TIDAK Bergerak) + Judul --}}
         <div class="d-flex align-items-center justify-content-center mb-3 flex-wrap">
-            <img src="{{ asset('storage/logo-sekolah.png') }}" alt="Logo Sekolah" style="height: 60px; width: auto; margin-right: 15px;">
+            <img src="{{ asset('/img/logo-sekolah.png') }}" alt="Logo Sekolah" style="height: 60px; width: auto; margin-right: 15px;">
             <h1 class="display-4 fw-bold text-primary mb-0">Selamat Datang di Halaman Ekstrakurikuler</h1>
         </div>
 
