@@ -179,62 +179,75 @@
         </form>
     </div>
 
+   @php
+    $groupedAnggota = $anggota->groupBy('generasi');
+
+    // Mapping prioritas jabatan
+    $prioritasJabatan = [
+        'ketua' => 1,
+        'wakil' => 2,
+        'sekretaris' => 3,
+        'bendahara' => 4,
+        'anggota' => 5,
+    ];
+@endphp
+
+@forelse ($groupedAnggota as $generasi => $items)
     @php
-        $groupedAnggota = $anggota->groupBy('generasi');
+        // Urutkan berdasarkan prioritas jabatan
+        $sortedItems = $items->sortBy(function($item) use ($prioritasJabatan) {
+            $jabatan = strtolower($item->jabatan->nama_jabatan ?? 'anggota');
+            return $prioritasJabatan[$jabatan] ?? 999; // jika jabatan tidak ditemukan, beri nilai besar
+        });
     @endphp
 
-    @forelse ($groupedAnggota as $generasi => $items)
-        <div class="mb-4">
-            <h3 class="text-center text-secondary fw-bold mb-3">Generasi {{ $generasi }}</h3>
-            <div class="row g-4 justify-content-center">
-                @foreach($items as $item)
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="card shadow-sm rounded-4 border-0 h-100">
-                            {{-- Foto Profil --}}
-                            @if($item->foto_profil)
-                                <img src="{{ asset('storage/' . $item->foto_profil) }}" alt="{{ $item->nama_anggota }}"
-                                    class="card-img-top rounded-top" style="height: 220px; object-fit: cover;">
-                            @else
-                                <div class="d-flex justify-content-center align-items-center bg-secondary text-white rounded-top" style="height: 220px;">
-                                    <i class="fa-solid fa-user fa-5x"></i>
-                                </div>
-                            @endif
-
-                            <div class="card-body text-center">
-                                {{-- Nama Anggota --}}
-                                <h5 class="card-title fw-bold mb-1" style="font-family: 'Poppins', sans-serif;">
-                                    {{ $item->nama_anggota }}
-                                </h5>
-
-                                {{-- Ekskul & Jabatan --}}
-                                <p class="mb-1">
-                                    <span class="badge bg-info text-dark fs-6 me-1">
-                                        {{ $item->ekskul?->nama_ekskul ?? 'Ekskul tidak tersedia' }}
-                                    </span>
-                                    <span class="badge bg-primary text-white fs-6 text-capitalize">
-                                        {{ $item->jabatan?->nama_jabatan ?? 'Anggota' }}
-                                    </span>
-                                </p>
-
-                                {{-- Status --}}
-                                <p>
-                                    <span class="badge rounded-pill bg-{{ $item->status === 'aktif' ? 'success' : 'secondary' }} px-3 py-2 fs-6">
-                                        {{ ucfirst($item->status) }}
-                                    </span>
-                                </p>
-
-                                {{-- Info Tambahan --}}
-                                <small class="text-muted d-block">Jurusan: {{ $item->jurusan }}</small>
+    <div class="mb-4">
+        <h3 class="text-center text-secondary fw-bold mb-3">Generasi {{ $generasi }}</h3>
+        <div class="row g-4 justify-content-center">
+            @foreach($sortedItems as $item)
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card shadow-sm rounded-4 border-0 h-100">
+                        {{-- Foto Profil --}}
+                        @if($item->foto_profil)
+                            <img src="{{ asset('storage/' . $item->foto_profil) }}" alt="{{ $item->nama_anggota }}"
+                                class="card-img-top rounded-top" style="height: 220px; object-fit: cover;">
+                        @else
+                            <div class="d-flex justify-content-center align-items-center bg-secondary text-white rounded-top" style="height: 220px;">
+                                <i class="fa-solid fa-user fa-5x"></i>
                             </div>
+                        @endif
+
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold mb-1" style="font-family: 'Poppins', sans-serif;">
+                                {{ $item->nama_anggota }}
+                            </h5>
+
+                            <p class="mb-1">
+                                <span class="badge bg-info text-dark fs-6 me-1">
+                                    {{ $item->ekskul?->nama_ekskul ?? 'Ekskul tidak tersedia' }}
+                                </span>
+                                <span class="badge bg-primary text-white fs-6 text-capitalize">
+                                    {{ $item->jabatan?->nama_jabatan ?? 'Anggota' }}
+                                </span>
+                            </p>
+
+                            <p>
+                                <span class="badge rounded-pill bg-{{ $item->status === 'aktif' ? 'success' : 'secondary' }} px-3 py-2 fs-6">
+                                    {{ ucfirst($item->status) }}
+                                </span>
+                            </p>
+
+                            <small class="text-muted d-block">Jurusan: {{ $item->jurusan }}</small>
                         </div>
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
         </div>
-    @empty
-        <p class="text-center text-muted fst-italic">Belum ada data anggota untuk generasi ini.</p>
-    @endforelse
-</div>
+    </div>
+@empty
+    <p class="text-center text-muted fst-italic">Belum ada data anggota untuk generasi ini.</p>
+@endforelse
+
 
 
 
