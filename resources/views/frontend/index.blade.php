@@ -29,6 +29,14 @@
         color: #fff;
     }
 
+    [data-bs-theme="dark"] .ekskul-description {
+        color: #ffffff !important;
+    }
+
+    [data-bs-theme="light"] .ekskul-description {
+        color: #000000 !important;
+    }
+
     /* Card Styles and Animations */
     .card {
         transition: all 0.3s ease;
@@ -229,14 +237,6 @@
     [data-bs-theme="dark"] .text-muted {
         color: rgba(255, 255, 255, 0.6) !important;
     }
-
-    [data-bs-theme="dark"] .ekskul-description {
-        color: #fff;
-    }
-
-    [data-bs-theme="light"] .ekskul-description {
-        color: #000;
-    }
     </style>
 
     {{-- Section Profil Ekskul --}}
@@ -335,7 +335,7 @@
 
 
    {{-- Bagian Daftar Anggota Ekskul Berdasarkan Generasi --}}
-<div class="mb-5" id="daftar-anggota-section">
+<div class="mb-5">
     <h2 class="fw-bold section-title text-center display-5 mb-4">Daftar Anggota Ekstrakurikuler</h2>
     <p class="text-center text-muted mb-5">Kenali rekan-rekan ekstrakurikulermu dari berbagai generasi</p>
 
@@ -429,7 +429,6 @@
 
 
 {{-- Section Kegiatan Ekskul --}}
-<div id="kegiatan-section">
 <style>
     .card.shadow-sm:hover {
         box-shadow: 0 10px 20px rgba(13, 110, 253, 0.25) !important;

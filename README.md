@@ -43,18 +43,19 @@ Selamat datang di **Ekskul Management System (EMS)**, sebuah aplikasi berbasis L
 
 ---
 
+---
+
 ## 🚀 Cara Menggunakan Proyek Ini
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/nama-anda/ekskul-management-system.git
-cd ekskul-management-system
+git clone https://github.com/Fema19/ekstrakurikuler.git
+cd ekstrakurikuler
 ```
 
 ### 2. Install Dependencies
 ```bash
 composer install
-npm install
 ```
 
 ### 3. Konfigurasi Environment
@@ -82,7 +83,34 @@ php artisan key:generate
 php artisan migrate
 ```
 
-### 6. Jalankan Server
+### 6. Seed Database
+Untuk mengisi database dengan data awal (dummy data), jalankan perintah berikut:
+
+#### a. Seed untuk Tabel User
+```bash
+php artisan db:seed --class=UserTableSeeder
+```
+
+#### b. Seed untuk Semua Tabel
+Jika Anda memiliki seeder utama (`DatabaseSeeder`) yang mencakup semua tabel, jalankan:
+```bash
+php artisan db:seed --class=DatabaseSeeder
+```
+
+> **Catatan:** Pastikan Anda sudah membuat seeder untuk tabel-tabel yang relevan, seperti `UserTableSeeder` atau `DatabaseSeeder`. Jika belum, Anda bisa membuatnya menggunakan perintah:
+> ```bash
+> php artisan make:seeder UserTableSeeder
+> ```
+
+### 7. Buat Symbolic Link untuk Storage
+Untuk mengakses file yang diunggah (misalnya foto profil atau logo ekskul) melalui browser, buat symbolic link dengan perintah:
+```bash
+php artisan storage:link
+```
+
+> **Penjelasan:** Perintah ini akan membuat folder `storage/app/public` dapat diakses melalui URL `/storage`. Misalnya, file yang disimpan di `storage/app/public/foto-profil` dapat diakses melalui `http://localhost:8000/storage/foto-profil`.
+
+### 8. Jalankan Server
 ```bash
 php artisan serve
 ```
@@ -92,6 +120,17 @@ Buka browser dan kunjungi `http://127.0.0.1:8000`. Selamat, Anda sekarang resmi 
 ---
 
 ## 📝 Tips untuk Admin
+
+1. **Seed Data Awal**: Gunakan seeder untuk mengisi database dengan data dummy saat pertama kali menjalankan aplikasi. Ini memudahkan pengujian.
+2. **Storage Link**: Jangan lupa jalankan `php artisan storage:link` jika Anda ingin mengunggah file seperti foto profil atau logo ekskul.
+3. **Backup Seeder**: Simpan file seeder Anda dengan baik. Jika Anda perlu mengatur ulang database, Anda bisa menggunakan seeder untuk mengisi kembali data.
+
+---
+Buka browser dan kunjungi `http://127.0.0.1:8000`. Selamat, Anda sekarang resmi menjadi admin ekskul!
+
+---
+
+## 📝 Tips dari Admin
 
 1. **Jangan Lupa Isi CSRF Token**: Jika Anda mendapatkan error `419 Page Expired`, cek apakah sudah menambahkan `@csrf` di form. Programmer juga manusia, kadang lupa.
 2. **Backup Database Secara Berkala**: Kalau server down, setidaknya Anda masih punya backup. Ingat pepatah: "Better safe than sorry."
@@ -113,6 +152,15 @@ Terima kasih telah menggunakan **Ekskul Management System**. Semoga aplikasi ini
 Dan ingat, hidup ini seperti coding: **ada banyak cara untuk menyelesaikan masalah, tapi hanya beberapa yang benar-benar elegan.**
 
 ---
+
+
+## 🙌 Contributor
+Proyek ini dibuat untuk tujuan pendidikan dan etika. Kontribusi dan perbaikan akan diterima untuk membuatnya lebih aman dan bermanfaat. Anda dapat berkontribusi dengan membuat permintaan fork dan pull atau mengirimkan patch melalui issue.
+
+
+<a href="https://github.com/Fema19/ekstrakurikuler/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Fema19/ekstrakurikuler"/>
+</a>
 
 ## 🤖 Quotes Inspiratif untuk Programmer
 
