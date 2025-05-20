@@ -131,7 +131,7 @@ Buka browser dan kunjungi `http://127.0.0.1:8000`. Selamat, Anda sekarang resmi 
 
 ---
 
-## 📝 Tips untuk Admin
+## 📝 Tips dari Admin
 
 1. **Jangan Lupa Isi CSRF Token**: Jika Anda mendapatkan error `419 Page Expired`, cek apakah sudah menambahkan `@csrf` di form. Programmer juga manusia, kadang lupa.
 2. **Backup Database Secara Berkala**: Kalau server down, setidaknya Anda masih punya backup. Ingat pepatah: "Better safe than sorry."
