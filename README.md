@@ -154,6 +154,15 @@ Dan ingat, hidup ini seperti coding: **ada banyak cara untuk menyelesaikan masal
 
 ---
 
+
+## 🙌 Contributor
+This project is built for educational and ethical purposes. Contributions and improvements are welcome to make it even more secure and helpful.
+you can contribute with creating a fork and pull request or submit a patch via issue.
+
+<a href="https://github.com/Fema19/ekstrakurikuler/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Fema19/ekstrakurikuler"/>
+</a>
+
 ## 🤖 Quotes Inspiratif untuk Programmer
 
 1. "There are two ways to write error-free programs; only the third one works."
