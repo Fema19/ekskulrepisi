@@ -4,49 +4,130 @@
 
 {{-- Link Google Fonts Poppins --}}
 @section('head')
-<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-    /* Marquee Container */
-    .marquee-container {
-        overflow: hidden;
-        white-space: nowrap;
-        background-color: #e9f2ff;
-        border-radius: 10px;
-        padding: 10px 0;
-        margin-bottom: 1.5rem;
-    }
-
-    /* Marquee Text */
-    .marquee-text {
-        display: inline-block;
-        padding-left: 100%; /* Mulai dari luar kanan */
-        animation: marquee 15s linear infinite;
+    /* Global Styles */
+    body {
         font-family: 'Poppins', sans-serif;
-        font-weight: 600;
-        color: #0d6efd;
-        font-size: 1.25rem;
     }
 
-    /* Keyframes untuk marquee */
-    @keyframes marquee {
-        0%   { transform: translateX(100%); }  /* Mulai dari luar kanan */
-        100% { transform: translateX(-100%); } /* Pergi ke kiri luar */
+    /* Dark Mode Styles */
+    [data-bs-theme="dark"] .bg-light {
+        background-color: #2d3238 !important;
     }
 
-    /* Efek hover untuk card Profil Ekskul */
-    .card.shadow-sm:hover {
-        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.25) !important; /* shadow warna biru lembut */
-        transform: translateY(-5px);
+    [data-bs-theme="dark"] .text-secondary {
+        color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    [data-bs-theme="dark"] .bg-secondary {
+        background-color: #2d3238 !important;
+    }
+
+    [data-bs-theme="dark"] .section-title {
+        color: #fff;
+    }
+
+    /* Card Styles and Animations */
+    .card {
         transition: all 0.3s ease;
+        border: none;
+        background: var(--card-bg);
     }
 
-    /* Padding kiri kanan agar tidak terlalu mepet di layar besar */
+    .card.shadow-sm:hover {
+        box-shadow: 0 10px 20px var(--card-hover) !important;
+        transform: translateY(-5px);
+    }
+
+    /* Improved Container Spacing */
     .wide-container {
-        padding-left: 3rem;
-        padding-right: 3rem;
+        padding-left: clamp(1rem, 5vw, 3rem);
+        padding-right: clamp(1rem, 5vw, 3rem);
+    }
+
+    /* Section Headers */
+    .section-title {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        bottom: 0;
+        left: 25%;
+        border-radius: 2px;
+    }
+
+    /* Card Image Effects */
+    .card-img-hover {
+        overflow: hidden;
+        border-radius: 1rem;
+    }
+
+    .card-img-hover img {
+        transition: transform 0.5s ease;
+    }
+
+    .card-img-hover:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Badge Styles */
+    .custom-badge {
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 0.5em 1em;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Scroll Animations */
+    .scroll-fade {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+    }
+
+    .scroll-fade.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 </style>
+
+<script>
+    // Scroll Animation
+    document.addEventListener('DOMContentLoaded', function() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.scroll-fade').forEach(el => observer.observe(el));
+
+        // Image error handling
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.onerror = null;
+                this.src = '{{ asset('/img/logo-sekolah.png') }}';
+                this.alt = 'Default Image';
+            });
+        });
+    });
+</script>
 @endsection
 
 @section('content')
@@ -55,21 +136,113 @@
 
 
     {{-- Hero Section --}}
-    <div class="bg-light p-5 rounded-4 shadow mb-5 text-center position-relative overflow-hidden" style="background: linear-gradient(135deg, #dcefff, #f0f9ff);">
-
-        {{-- Logo Sekolah (TIDAK Bergerak) + Judul --}}
-        <div class="d-flex align-items-center justify-content-center mb-3 flex-wrap">
-            <img src="{{ asset('storage/logo-sekolah.png') }}" alt="Logo Sekolah" style="height: 60px; width: auto; margin-right: 15px;">
-            <h1 class="display-4 fw-bold text-primary mb-0">Selamat Datang di Halaman Ekstrakurikuler</h1>
+    <div class="hero-section p-5 rounded-4 shadow mb-5 text-center position-relative overflow-hidden">
+        <div class="hero-content">
+            <div class="d-flex align-items-center justify-content-center mb-4 flex-wrap">
+                <img src="{{ asset('/img/logo-sekolah.png') }}" alt="Logo Sekolah" class="hero-logo animate-float">
+                <h1 class="display-4 fw-bold text-gradient mb-0">Selamat Datang di Halaman Ekstrakurikuler</h1>
+            </div>
+            <p class="lead mb-4 text-muted">Mari bergabung dan kembangkan bakatmu bersama kami!</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#ekskul-section" class="btn btn-primary btn-lg px-4">
+                    <i class="fas fa-info-circle me-2"></i>Pelajari Lebih Lanjut
+                </a>
+                <a href="{{ route('anggota.index') }}" class="btn btn-outline-primary btn-lg px-4">
+                    <i class="fas fa-users me-2"></i>Lihat Anggota
+                </a>
+            </div>
         </div>
-
-
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
     </div>
 
+    <style>
+    .hero-section {
+        background: var(--card-bg);
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    [data-bs-theme="dark"] .hero-section {
+        background: linear-gradient(135deg, #1a1d20, #2d3238);
+    }
+
+    .hero-logo {
+        height: 80px;
+        width: auto;
+        margin-right: 20px;
+    }
+
+    .text-gradient {
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .hero-shapes .shape {
+        position: absolute;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        border-radius: 50%;
+        opacity: 0.1;
+    }
+
+    .shape-1 {
+        width: 150px;
+        height: 150px;
+        top: -50px;
+        right: -50px;
+    }
+
+    .shape-2 {
+        width: 100px;
+        height: 100px;
+        bottom: -30px;
+        left: -30px;
+    }
+
+    .shape-3 {
+        width: 70px;
+        height: 70px;
+        bottom: 50%;
+        right: 10%;
+    }
+
+    [data-bs-theme="dark"] .card {
+        background-color: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    [data-bs-theme="dark"] .text-muted {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    [data-bs-theme="dark"] .ekskul-description {
+        color: #fff;
+    }
+
+    [data-bs-theme="light"] .ekskul-description {
+        color: #000;
+    }
+    </style>
+
     {{-- Section Profil Ekskul --}}
-    <div class="mb-5">
-        <h2 class="fw-bold text-primary text-center display-5 mb-4">Profil Ekskul</h2>
-        <hr class="w-25 mx-auto border-3 border-primary mb-5">
+    <div class="mb-5" id="ekskul-section">
+        <h2 class="fw-bold section-title text-center display-5 mb-4">Profil Ekskul</h2>
+        <p class="text-center text-muted mb-5">Temukan berbagai kegiatan ekstrakurikuler yang sesuai dengan minat dan bakatmu</p>
 
         <div class="row justify-content-center gy-5">
             @forelse($ekskul as $esk)
@@ -77,7 +250,7 @@
                     <div class="card shadow-sm rounded-4 border-0 p-4" style="background-color: transparent; transition: box-shadow 0.3s ease;">
                         <div class="row g-0 align-items-center">
                             {{-- Deskripsi Ekskul --}}
-                            <div class="col-12 col-md-8 pe-md-5" style="font-family: 'Poppins', sans-serif; font-size: 1.15rem; color: #000000; line-height: 1.7;">
+                            <div class="col-12 col-md-8 pe-md-5 ekskul-description" style="font-family: 'Poppins', sans-serif; font-size: 1.15rem; line-height: 1.7;">
                                 <h3 class="fw-bold text-primary mb-3">{{ $esk->nama_ekskul }}</h3>
                                 <p class="mb-0">{{ $esk->deskripsi ?? 'Deskripsi ekstrakurikuler belum tersedia.' }}</p>
                             </div>
@@ -106,19 +279,22 @@
 
 
 {{-- Section Pembina Ekskul --}}
-<div class="mb-5 px-4">
-    <h2 class="fw-bold text-primary text-center display-5 mb-4">Daftar Pembina Ekskul</h2>
-    <hr class="w-25 mx-auto border-3 border-primary mb-4">
+<div class="mb-5 px-4" id="daftar-pembina-section">
+    <h2 class="fw-bold section-title text-center display-5 mb-4">Daftar Pembina Ekskul</h2>
+    <p class="text-center text-muted mb-5">Kenali para pembina yang akan membimbing perjalananmu</p>
 
     <div class="row g-5 justify-content-center">
         @forelse($pembina as $p)
             <div class="col-12 col-md-10 col-lg-8">
-                <div class="card shadow-sm rounded-4 h-100 border-0 d-flex flex-row align-items-center"
-                     style="transition: box-shadow 0.3s ease, transform 0.3s ease; min-height: 250px;">
+                <div class="card shadow-sm rounded-4 h-100 border-0 d-flex flex-row align-items-center scroll-fade"
+                     style="min-height: 250px;">
 
                     {{-- Konten teks di kiri --}}
                     <div class="card-body text-start px-4" style="flex: 1 1 65%;">
-                        <h5 class="card-title fw-bold">{{ $p->nama_pembina }}</h5>
+                        <h5 class="card-title fw-bold mb-3">{{ $p->nama_pembina }}</h5>
+                        <div class="custom-badge mb-3">
+                            <i class="fas fa-star me-1"></i>Pembina Ekskul
+                        </div>
 
 
                         {{-- Deskripsi Pembina --}}
@@ -159,9 +335,9 @@
 
 
    {{-- Bagian Daftar Anggota Ekskul Berdasarkan Generasi --}}
-<div class="mb-5">
-    <h2 class="fw-bold text-primary text-center display-5 mb-4">Daftar Anggota Ekstrakurikuler</h2>
-    <hr class="w-25 mx-auto border-3 border-primary mb-4">
+<div class="mb-5" id="daftar-anggota-section">
+    <h2 class="fw-bold section-title text-center display-5 mb-4">Daftar Anggota Ekstrakurikuler</h2>
+    <p class="text-center text-muted mb-5">Kenali rekan-rekan ekstrakurikulermu dari berbagai generasi</p>
 
     {{-- Filter Dropdown --}}
     <div class="text-center mb-4">
@@ -169,7 +345,7 @@
             <div class="d-inline-block">
                 <select name="generasi" onchange="this.form.submit()" class="form-select">
                     <option value="">-- Semua Generasi --</option>
-                    @foreach($generasiList as $gen)
+                    @foreach(($generasiList ?? collect([])) as $gen)
                         <option value="{{ $gen }}" {{ request('generasi') == $gen ? 'selected' : '' }}>
                             Generasi {{ $gen }}
                         </option>
@@ -180,7 +356,8 @@
     </div>
 
    @php
-    $groupedAnggota = $anggota->groupBy('generasi');
+    // Memastikan $anggota tidak null sebelum grouping
+    $groupedAnggota = isset($anggota) ? $anggota->groupBy('generasi') : collect([]);
 
     // Mapping prioritas jabatan
     $prioritasJabatan = [
@@ -192,7 +369,7 @@
     ];
 @endphp
 
-@forelse ($groupedAnggota as $generasi => $items)
+@forelse (($groupedAnggota ?? collect([])) as $generasi => $items)
     @php
         // Urutkan berdasarkan prioritas jabatan
         $sortedItems = $items->sortBy(function($item) use ($prioritasJabatan) {
@@ -252,6 +429,7 @@
 
 
 {{-- Section Kegiatan Ekskul --}}
+<div id="kegiatan-section">
 <style>
     .card.shadow-sm:hover {
         box-shadow: 0 10px 20px rgba(13, 110, 253, 0.25) !important;
@@ -289,22 +467,27 @@
     <div class="row g-4 justify-content-center">
         @forelse($kegiatan as $keg)
             <div class="col-md-6 col-lg-4">
-                <div class="card shadow-sm rounded-4 h-100 border-0">
+                <div class="card shadow-sm rounded-4 h-100 border-0 scroll-fade">
                     {{-- Gambar --}}
-                    @if($keg->foto)
-                        <img src="{{ asset('storage/' . $keg->foto) }}"
-                             class="card-img-top rounded-top"
-                             alt="{{ $keg->nama_kegiatan }}"
-                             style="height: 220px; object-fit: cover;">
-                    @else
-                        <div class="d-flex justify-content-center align-items-center bg-light rounded-top" style="height: 220px;">
-                            <i class="fa-solid fa-calendar-days fa-5x text-secondary"></i>
-                        </div>
-                    @endif
+                    <div class="card-img-hover">
+                        @if($keg->foto)
+                            <img src="{{ asset('storage/' . $keg->foto) }}"
+                                class="card-img-top rounded-top"
+                                alt="{{ $keg->nama_kegiatan }}"
+                                style="height: 220px; object-fit: cover;">
+                        @else
+                            <div class="d-flex justify-content-center align-items-center bg-light rounded-top" style="height: 220px;">
+                                <i class="fa-solid fa-calendar-days fa-5x text-secondary"></i>
+                            </div>
+                        @endif
+                    </div>
 
                     {{-- Konten --}}
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold">{{ $keg->nama_kegiatan }}</h5>
+                        <h5 class="card-title fw-semibold mb-3">{{ $keg->nama_kegiatan }}</h5>
+                        <div class="custom-badge mb-3">
+                            <i class="fas fa-calendar-check me-1"></i>Kegiatan
+                        </div>
 
                         @php
                             $plainText = strip_tags($keg->deskripsi ?? 'Tidak ada deskripsi.');
@@ -342,4 +525,3 @@
 </div>
 
 @endsection
-
