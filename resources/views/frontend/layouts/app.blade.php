@@ -172,7 +172,15 @@
                     <li class="nav-item"><a class="nav-link text-white" href="#daftar-pembina-section"><i class="fas fa-chalkboard-teacher me-1"></i>Pembina</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#ekskul-section"><i class="fas fa-dumbbell me-1"></i>Ekskul</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#kegiatan-section"><i class="fas fa-calendar-alt me-1"></i>Kegiatan</a></li>
-                    <li class="nav-item"><a class="nav-link text-white scroll-top" href="#"><i class="fas fa-arrow-up me-1"></i>Ke Atas</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-arrows-alt-v me-1"></i>Navigasi
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item scroll-top" href="#"><i class="fas fa-arrow-up me-2"></i>Ke Atas</a></li>
+                            <li><a class="dropdown-item scroll-bottom" href="#footer"><i class="fas fa-arrow-down me-2"></i>Ke Bawah</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <button class="btn text-white ms-2" id="themeToggle">
                             <i class="fas fa-moon" id="themeIcon"></i>
@@ -196,7 +204,7 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer id="footer">
         <small>&copy; {{ date('Y') }} Sekolah Kami. All rights reserved.</small>
     </footer>
 
@@ -246,6 +254,32 @@
         });
     </script>
 
+    <!-- Navigation Styles -->
+    <style>
+        .dropdown-menu {
+            background: rgba(253, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .dropdown-item {
+            color: white;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .dropdown-toggle::after {
+            margin-left: 0.5rem;
+        }
+    </style>
+
     <!-- Smooth Scrolling Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -254,18 +288,28 @@
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
+                    
                     if (targetId === '#') {
                         // Scroll to top with smooth behavior
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
                         });
+                    } else if (this.classList.contains('scroll-bottom')) {
+                        // Scroll to bottom with smooth behavior
+                        window.scrollTo({
+                            top: document.documentElement.scrollHeight,
+                            behavior: 'smooth'
+                        });
                     } else {
                         // Scroll to target element
-                        document.querySelector(targetId).scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+                        const target = document.querySelector(targetId);
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
                     }
                 });
             });

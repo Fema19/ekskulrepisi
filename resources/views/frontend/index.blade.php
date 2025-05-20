@@ -29,14 +29,6 @@
         color: #fff;
     }
 
-    [data-bs-theme="dark"] .ekskul-description {
-        color: #ffffff !important;
-    }
-
-    [data-bs-theme="light"] .ekskul-description {
-        color: #000000 !important;
-    }
-
     /* Card Styles and Animations */
     .card {
         transition: all 0.3s ease;
@@ -250,7 +242,7 @@
                     <div class="card shadow-sm rounded-4 border-0 p-4" style="background-color: transparent; transition: box-shadow 0.3s ease;">
                         <div class="row g-0 align-items-center">
                             {{-- Deskripsi Ekskul --}}
-                            <div class="col-12 col-md-8 pe-md-5 ekskul-description" style="font-family: 'Poppins', sans-serif; font-size: 1.15rem; line-height: 1.7;">
+                            <div class="col-12 col-md-8 pe-md-5" style="font-family: 'Poppins', sans-serif; font-size: 1.15rem; color: #000000; line-height: 1.7;">
                                 <h3 class="fw-bold text-primary mb-3">{{ $esk->nama_ekskul }}</h3>
                                 <p class="mb-0">{{ $esk->deskripsi ?? 'Deskripsi ekstrakurikuler belum tersedia.' }}</p>
                             </div>
