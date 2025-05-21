@@ -83,35 +83,59 @@
         }
 
         header {
-            background-color: #fd0d0d;
+            background: linear-gradient(135deg, #fd0d0d, #f21010);
             color: white;
-            padding: 2rem 0 1.5rem;
+            padding: 4rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 10px rgb(13 110 253 / 0.3);
-            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.7;
+        }
+
+        header .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         header img {
-            height: 80px;
-            margin-bottom: 1rem;
+            height: 120px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            animation: float 3s ease-in-out infinite;
         }
 
-        .typing-text {
-            border-right: .15em solid #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-            display: inline-block;
-            animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+        header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
         }
 
-        @keyframes blink {
-            50% { border-color: transparent }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
         }
 
         footer {
@@ -289,9 +313,11 @@
 
     <!-- Header -->
     <header>
-        <img src="{{ asset('/img/logo-sekolah.png') }}" alt="Logo Sekolah">
-        <h1 class="fw-bold typing-text" data-text="Website Ekstrakurikuler Sekolah"></h1>
-        <p class="lead typing-text" data-text="Temukan informasi lengkap tentang kegiatan dan anggota ekstrakurikuler kami."></p>
+        <div class="header-content">
+            <img src="{{ asset('/img/logo-sekolah.png') }}" alt="Logo Sekolah">
+            <h1 class="fw-bold">Website Ekstrakurikuler Sekolah</h1>
+            <p class="lead">Temukan informasi lengkap tentang kegiatan dan anggota ekstrakurikuler kami.</p>
+        </div>
     </header>
 
     <!-- Main Content -->

@@ -162,9 +162,7 @@
                 <a href="#ekskul-section" class="btn btn-primary btn-lg px-4">
                     <i class="fas fa-info-circle me-2"></i>Pelajari Lebih Lanjut
                 </a>
-                <a href="{{ route('anggota.index') }}" class="btn btn-outline-primary btn-lg px-4">
-                    <i class="fas fa-users me-2"></i>Lihat Anggota
-                </a>
+
             </div>
         </div>
         <div class="hero-shapes">
