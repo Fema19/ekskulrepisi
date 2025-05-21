@@ -147,6 +147,102 @@
         .btn i {
             margin-right: 6px;
         }
+
+        /* Navigation Styles */
+        .navbar .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+
+        .navbar .nav-link:hover::before,
+        .navbar .nav-link.active::before {
+            width: 100%;
+        }
+
+        .navbar .nav-link:active {
+            transform: scale(0.95);
+        }
+
+        /* Prevent white flash on click */
+        .navbar .nav-link,
+        .navbar .nav-link:active,
+        .navbar .nav-link:focus,
+        .navbar .nav-link:hover {
+            color: white !important;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .dropdown-menu {
+            background: rgba(253, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: dropdownFade 0.3s ease;
+        }
+
+        @keyframes dropdownFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            color: white;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Active nav item styles */
+        .nav-link.active {
+            position: relative;
+            font-weight: bold;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 40px;
+        }
+
+        /* Smooth scroll padding to account for fixed navbar */
+        html {
+            scroll-padding-top: 100px;
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
@@ -168,10 +264,10 @@
             <!-- Menu Navigasi -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto fw-semibold">
-                    <li class="nav-item"><a class="nav-link text-white" href="#daftar-anggota-section"><i class="fas fa-users me-1"></i>Anggota</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#anggota-section"><i class="fas fa-users me-1"></i>Anggota</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#daftar-pembina-section"><i class="fas fa-chalkboard-teacher me-1"></i>Pembina</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#ekskul-section"><i class="fas fa-dumbbell me-1"></i>Ekskul</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#kegiatan-section"><i class="fas fa-calendar-alt me-1"></i>Kegiatan</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#daftar-kegiatan-section"><i class="fas fa-calendar-alt me-1"></i>Kegiatan</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-arrows-alt-v me-1"></i>Navigasi
@@ -254,92 +350,62 @@
         });
     </script>
 
-    <!-- Navigation Styles -->
-    <style>
-        .dropdown-menu {
-            background: rgba(253, 13, 13, 0.95);
-            backdrop-filter: blur(10px);
-            border: none;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .dropdown-item {
-            color: white;
-            padding: 0.5rem 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .dropdown-toggle::after {
-            margin-left: 0.5rem;
-        }
-    </style>
-
-    <!-- Smooth Scrolling Script -->
+    <!-- Improved Smooth Scrolling Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Add smooth scrolling to all links
+            const navbar = document.querySelector('.navbar');
+            const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+            const sections = {};
+            const navHeight = navbar.offsetHeight;
+
+            // Collect all sections
+            navLinks.forEach(link => {
+                const section = document.querySelector(link.getAttribute('href'));
+                if (section) {
+                    sections[link.getAttribute('href')] = section;
+                }
+            });
+
+            // Smooth scroll handling
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
 
                     if (targetId === '#') {
-                        // Scroll to top with smooth behavior
                         window.scrollTo({
                             top: 0,
                             behavior: 'smooth'
                         });
                     } else if (this.classList.contains('scroll-bottom')) {
-                        // Scroll to bottom with smooth behavior
                         window.scrollTo({
                             top: document.documentElement.scrollHeight,
                             behavior: 'smooth'
                         });
                     } else {
-                        // Scroll to target element
                         const target = document.querySelector(targetId);
                         if (target) {
-                            target.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
+                            const offset = navHeight;
+                            const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                            const offsetPosition = elementPosition - offset;
+
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
                             });
                         }
                     }
                 });
             });
-        });
-    </script>
 
-    <!-- Typing Animation Script -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const texts = document.querySelectorAll(".typing-text");
-            texts.forEach((el, i) => {
-                const fullText = el.getAttribute("data-text");
-                el.innerHTML = "";
-                el.style.width = "0";
+            // Highlight nav link on scroll
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.pageYOffset + navHeight;
 
-                setTimeout(() => {
-                    let index = 0;
-                    const type = setInterval(() => {
-                        if (index < fullText.length) {
-                            el.textContent += fullText.charAt(index);
-                            index++;
-                        } else {
-                            clearInterval(type);
-                            el.style.borderRight = "none";
-                        }
-                    }, 50);
-                }, i * 500);
-            });
-        });
-    </script>
-
-</body>
-</html>
+                for (const id in sections) {
+                    const section = sections[id];
+                    if (section.offsetTop <= scrollPosition && section.offsetTop + section.offsetHeight > scrollPosition) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${section.id}`) {
+                                link.classList.add('active');
