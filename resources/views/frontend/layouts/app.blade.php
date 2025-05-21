@@ -253,7 +253,7 @@
             <!-- Logo dan Teks di Kiri -->
             <a class="navbar-brand d-flex align-items-center gap-3 me-auto" href="{{ url('/sesi') }}">
                 <img src="{{ asset('/img/logo-sekolah1.png') }}" alt="Logo Sekolah">
-                <span>Ekskul Sekolah</span>
+                <span>SMKN 1 GARUT</span>
             </a>
 
             <!-- Toggle Button untuk Mobile -->

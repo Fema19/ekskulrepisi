@@ -343,7 +343,7 @@
 
 {{-- Section Pembina Ekskul --}}
 <div class="mb-5 px-4" id="daftar-pembina-section">
-    <h2 class="fw-bold section-title text-center display-5 mb-4">Daftar Pembina Ekskul</h2>
+    <h2 class="fw-bold section-title text-center display-5 mb-4">Pembina Ekskul</h2>
     <p class="text-center text-muted mb-5">Kenali para pembina yang akan membimbing perjalananmu</p>
 
     <div class="row g-4 justify-content-center">
@@ -353,13 +353,14 @@
                      onclick="openPembinaModal('pembinaModal_{{ $p->nip }}')"
                      style="cursor: pointer;">
                     {{-- Foto Pembina --}}
-                    <div class="pembina-image">
+                    <div class="pembina-image-top">
                         @if($p->foto_profil)
                             <img src="{{ asset('storage/' . $p->foto_profil) }}"
                                  alt="Foto {{ $p->nama_pembina }}"
+                                 class="pembina-portrait"
                                  loading="lazy">
                         @else
-                            <div class="d-flex justify-content-center align-items-center h-100 bg-light">
+                            <div class="pembina-portrait d-flex justify-content-center align-items-center bg-light">
                                 <i class="fas fa-user-tie fa-4x text-secondary"></i>
                             </div>
                         @endif
@@ -367,17 +368,28 @@
 
                     {{-- Informasi Pembina --}}
                     <div class="pembina-info text-center">
-                        <h4 class="pembina-name">{{ $p->nama_pembina }}</h4>
-                        <div class="pembina-badge">
+                        <h4 class="pembina-name mb-3">{{ $p->nama_pembina }}</h4>
+                        <div class="pembina-badge mb-3">
                             <i class="fas fa-star me-2"></i>
                             Pembina {{ $p->ekskul->nama_ekskul ?? 'Ekskul' }}
                         </div>
-                        <p class="pembina-description mb-0">
-                            {{ \Str::limit($p->deskripsi ?? 'Deskripsi pembina belum tersedia.', 100) }}
-                            @if(strlen($p->deskripsi ?? '') > 100)
-                                <span class="text-primary read-more">Baca selengkapnya...</span>
-                            @endif
-                        </p>
+                        <div class="pembina-description">
+                            @php
+                                $description = $p->deskripsi ?? 'Deskripsi pembina belum tersedia.';
+                                // Replace multiple newlines with paragraphs
+                                $description = preg_replace('/\n\s*\n/', '</p><p>', $description);
+                                // Convert remaining newlines to <br>
+                                $description = nl2br($description);
+                                // Get first words but preserve word boundaries
+                                $shortDesc = \Str::words(strip_tags($description), 20, '...');
+                            @endphp
+                            <div style="white-space: pre-line;">
+                                {!! $shortDesc !!}
+                                @if(strlen(strip_tags($description)) > strlen(strip_tags($shortDesc)))
+                                    <span class="text-primary read-more">Baca selengkapnya...</span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -412,7 +424,20 @@
                                                 Pembina {{ $p->ekskul->nama_ekskul ?? 'Ekskul' }}
                                             </div>
                                             <div class="pembina-description">
-                                                {{ $p->deskripsi ?? 'Deskripsi pembina belum tersedia.' }}
+                                                @php
+                                                    $description = $p->deskripsi ?? 'Deskripsi pembina belum tersedia.';
+                                                    // Replace multiple newlines with paragraphs
+                                                    $description = preg_replace('/\n\s*\n/', '</p><p>', $description);
+                                                    // Convert remaining newlines to <br>
+                                                    $description = nl2br($description);
+                                                    // Wrap in paragraph if not already
+                                                    if (!str_starts_with(trim($description), '<p>')) {
+                                                        $description = '<p>' . $description . '</p>';
+                                                    }
+                                                @endphp
+                                                <div style="white-space: pre-line;">
+                                                    {!! $description !!}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -441,6 +466,10 @@
         overflow: hidden;
         background: var(--card-bg);
         position: relative;
+        border-radius: 1rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .pembina-card::before {
@@ -463,53 +492,60 @@
         opacity: 0.1;
     }
 
-    .pembina-image {
+    .pembina-image-top {
+        width: 100%;
+        height: 360px;
         position: relative;
         overflow: hidden;
-        border-radius: 1rem;
-        height: 280px;
+        border-radius: 1rem 1rem 0 0;
+        background: var(--card-bg);
     }
 
-    .pembina-image img {
+    .pembina-portrait {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
     }
 
-    .pembina-card:hover .pembina-image img {
+    .pembina-card:hover .pembina-portrait {
         transform: scale(1.1);
     }
 
     .pembina-info {
-        padding: 1.5rem;
+        padding: 2rem;
         transition: all 0.3s ease;
+        background: var(--card-bg);
+        position: relative;
+        z-index: 1;
+        border-radius: 0 0 1rem 1rem;
     }
 
     .pembina-name {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
         font-weight: 600;
-        margin-bottom: 0.5rem;
         color: var(--text-color);
+        margin-bottom: 1rem;
     }
 
     .pembina-badge {
         display: inline-flex;
         align-items: center;
-        padding: 0.5rem 1rem;
+        padding: 0.75rem 1.5rem;
         background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
         color: white;
         border-radius: 50px;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         font-weight: 500;
-        margin-bottom: 1rem;
         box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.2);
+        margin-bottom: 1.5rem;
     }
 
     .pembina-description {
         color: var(--text-muted);
-        font-size: 0.95rem;
-        line-height: 1.6;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-top: 1rem;
     }
 
     /* Modal improvements */
