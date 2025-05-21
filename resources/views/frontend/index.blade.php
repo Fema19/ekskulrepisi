@@ -36,6 +36,21 @@
         background: var(--card-bg);
     }
 
+    .ekskul-card {
+        padding: 2.5rem !important;
+    }
+
+    .ekskul-card .description-preview {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: var(--text-color);
+    }
+
+    .ekskul-card h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
     .card.shadow-sm:hover {
         box-shadow: 0 10px 20px var(--card-hover) !important;
         transform: translateY(-5px);
@@ -275,12 +290,12 @@
                                             <img src="{{ asset('storage/' . $esk->logo) }}"
                                                  alt="{{ $esk->nama_ekskul }}"
                                                  class="img-fluid rounded-circle shadow ekskul-logo"
-                                                 style="width: 180px; height: 180px; object-fit: cover; border: 5px solid var(--primary-color);">
+                                                 style="width: 250px; height: 250px; object-fit: cover; border: 5px solid var(--primary-color);">
                                         </div>
                                     @else
                                         <div class="d-flex justify-content-center align-items-center bg-light rounded-circle shadow"
-                                             style="width: 180px; height: 180px; border: 5px solid var(--primary-color);">
-                                            <i class="fa-solid fa-school fa-4x text-primary"></i>
+                                             style="width: 250px; height: 250px; border: 5px solid var(--primary-color);">
+                                            <i class="fa-solid fa-school fa-5x text-primary"></i>
                                         </div>
                                     @endif
                                 </div>
@@ -302,10 +317,10 @@
                                             <img src="{{ asset('storage/' . $esk->logo) }}"
                                                  alt="{{ $esk->nama_ekskul }}"
                                                  class="img-fluid rounded-circle shadow-sm mb-3"
-                                                 style="max-width: 200px; max-height: 200px; object-fit: cover; border: 5px solid var(--primary-color);">
+                                                 style="max-width: 280px; max-height: 280px; object-fit: cover; border: 5px solid var(--primary-color);">
                                         @else
                                             <div class="d-flex justify-content-center align-items-center bg-light rounded-circle mx-auto mb-3"
-                                                 style="width: 200px; height: 200px; border: 5px solid var(--primary-color);">
+                                                 style="width: 280px; height: 280px; border: 5px solid var(--primary-color);">
                                                 <i class="fa-solid fa-school fa-5x text-primary"></i>
                                             </div>
                                         @endif
@@ -346,51 +361,61 @@
     <h2 class="fw-bold section-title text-center display-5 mb-4">Pembina Ekskul</h2>
     <p class="text-center text-muted mb-5">Kenali para pembina yang akan membimbing perjalananmu</p>
 
-    <div class="row g-4 justify-content-center">
+    <div class="row justify-content-center gy-5">
         @forelse($pembina as $p)
-            <div class="col-md-6 col-lg-4">
-                <div class="card pembina-card shadow-sm border-0"
-                     onclick="openPembinaModal('pembinaModal_{{ $p->nip }}')"
-                     style="cursor: pointer;">
-                    {{-- Foto Pembina --}}
-                    <div class="pembina-image-top">
-                        @if($p->foto_profil)
-                            <img src="{{ asset('storage/' . $p->foto_profil) }}"
-                                 alt="Foto {{ $p->nama_pembina }}"
-                                 class="pembina-portrait"
-                                 loading="lazy">
-                        @else
-                            <div class="pembina-portrait d-flex justify-content-center align-items-center bg-light">
-                                <i class="fas fa-user-tie fa-4x text-secondary"></i>
+            {{-- Pembina wrapper --}}
+            <div class="pembina-wrapper" data-pembina-id="{{ $p->nip }}">
+                {{-- Pembina Card --}}
+                <div class="col-12 col-lg-10 mx-auto">
+                    <div class="card shadow-sm rounded-4 border-0 p-4 pembina-card"
+                         onclick="openPembinaModal('pembinaModal_{{ $p->nip }}')"
+                         style="cursor: pointer; background-color: transparent; transition: all 0.3s ease;">
+                        <div class="row g-0 align-items-center">
+                            {{-- Deskripsi Pembina --}}
+                            <div class="col-12 col-md-8 pe-md-5" style="font-family: 'Poppins', sans-serif; font-size: 1.15rem; color: var(--text-color); line-height: 1.7;">
+                                <h3 class="fw-bold text-primary mb-3">{{ $p->nama_pembina }}</h3>
+                                <div class="pembina-badge mb-4">
+                                    <i class="fas fa-star me-2"></i>
+                                    Pembina {{ $p->ekskul->nama_ekskul ?? 'Ekskul' }}
+                                </div>
+                                <div class="description-preview">
+                                    @php
+                                        $description = $p->deskripsi ?? 'Deskripsi pembina belum tersedia.';
+                                        // Replace multiple newlines with paragraphs
+                                        $description = preg_replace('/\n\s*\n/', '</p><p>', $description);
+                                        // Convert remaining newlines to <br>
+                                        $description = nl2br($description);
+                                        // Get first 150 characters but preserve word boundaries
+                                        $shortDesc = \Str::words(strip_tags($description), 30, '...');
+                                    @endphp
+                                    <p class="mb-0" style="white-space: pre-line;">
+                                        {!! $shortDesc !!}
+                                        @if(strlen(strip_tags($description)) > strlen(strip_tags($shortDesc)))
+                                            <span class="text-primary read-more">Baca selengkapnya...</span>
+                                        @endif
+                                    </p>
+                                </div>
                             </div>
-                        @endif
-                    </div>
 
-                    {{-- Informasi Pembina --}}
-                    <div class="pembina-info text-center">
-                        <h4 class="pembina-name mb-3">{{ $p->nama_pembina }}</h4>
-                        <div class="pembina-badge mb-3">
-                            <i class="fas fa-star me-2"></i>
-                            Pembina {{ $p->ekskul->nama_ekskul ?? 'Ekskul' }}
-                        </div>
-                        <div class="pembina-description">
-                            @php
-                                $description = $p->deskripsi ?? 'Deskripsi pembina belum tersedia.';
-                                // Replace multiple newlines with paragraphs
-                                $description = preg_replace('/\n\s*\n/', '</p><p>', $description);
-                                // Convert remaining newlines to <br>
-                                $description = nl2br($description);
-                                // Get first words but preserve word boundaries
-                                $shortDesc = \Str::words(strip_tags($description), 20, '...');
-                            @endphp
-                            <div style="white-space: pre-line;">
-                                {!! $shortDesc !!}
-                                @if(strlen(strip_tags($description)) > strlen(strip_tags($shortDesc)))
-                                    <span class="text-primary read-more">Baca selengkapnya...</span>
+                            {{-- Foto Pembina --}}
+                            <div class="col-12 col-md-4 d-flex justify-content-center mt-4 mt-md-0">
+                                @if($p->foto_profil)
+                                    <div class="foto-wrapper">
+                                        <img src="{{ asset('storage/' . $p->foto_profil) }}"
+                                             alt="Foto {{ $p->nama_pembina }}"
+                                             class="img-fluid rounded-circle shadow pembina-portrait"
+                                             style="width: 220px; height: 220px; object-fit: cover; border: 5px solid var(--primary-color);">
+                                    </div>
+                                @else
+                                    <div class="d-flex justify-content-center align-items-center bg-light rounded-circle shadow"
+                                         style="width: 220px; height: 220px; border: 5px solid var(--primary-color);">
+                                        <i class="fas fa-user-tie fa-4x text-primary"></i>
+                                    </div>
                                 @endif
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
 
                 {{-- Modal Pembina --}}
@@ -468,8 +493,6 @@
         position: relative;
         border-radius: 1rem;
         height: 100%;
-        display: flex;
-        flex-direction: column;
     }
 
     .pembina-card::before {
@@ -492,40 +515,22 @@
         opacity: 0.1;
     }
 
-    .pembina-image-top {
-        width: 100%;
-        height: 360px;
-        position: relative;
-        overflow: hidden;
-        border-radius: 1rem 1rem 0 0;
-        background: var(--card-bg);
+    .pembina-wrapper {
+        margin-bottom: 2rem;
     }
 
-    .pembina-portrait {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+    .foto-wrapper {
+        position: relative;
         transition: transform 0.5s ease;
     }
 
-    .pembina-card:hover .pembina-portrait {
-        transform: scale(1.1);
+    .pembina-card:hover .foto-wrapper {
+        transform: scale(1.05);
     }
 
-    .pembina-info {
-        padding: 2rem;
-        transition: all 0.3s ease;
-        background: var(--card-bg);
-        position: relative;
-        z-index: 1;
-        border-radius: 0 0 1rem 1rem;
-    }
-
-    .pembina-name {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--text-color);
-        margin-bottom: 1rem;
+    .pembina-portrait {
+        transition: transform 0.5s ease;
+        box-shadow: 0 10px 25px rgba(var(--primary-color-rgb), 0.2);
     }
 
     .pembina-badge {
@@ -535,17 +540,27 @@
         background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
         color: white;
         border-radius: 50px;
-        font-size: 0.9rem;
+        font-size: 1rem;
         font-weight: 500;
         box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.2);
-        margin-bottom: 1.5rem;
     }
 
-    .pembina-description {
-        color: var(--text-muted);
-        font-size: 1rem;
+    .description-preview {
+        font-size: 1.1rem;
         line-height: 1.7;
-        margin-top: 1rem;
+        color: var(--text-muted);
+    }
+
+    .read-more {
+        display: inline-block;
+        margin-top: 0.5rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .read-more:hover {
+        color: var(--primary-color-hover);
     }
 
     /* Modal improvements */
