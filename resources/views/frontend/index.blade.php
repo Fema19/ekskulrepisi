@@ -249,12 +249,23 @@
                                 {{-- Deskripsi Ekskul --}}
                                 <div class="col-12 col-md-8 pe-md-5" style="font-family: 'Poppins', sans-serif; font-size: 1.15rem; color: var(--text-color); line-height: 1.7;">
                                     <h3 class="fw-bold text-primary mb-3">{{ $esk->nama_ekskul }}</h3>
-                                    <p class="mb-0 description-preview">
-                                        {{ \Str::limit($esk->deskripsi ?? 'Deskripsi ekstrakurikuler belum tersedia.', 150) }}
-                                        @if(strlen($esk->deskripsi) > 150)
-                                            <span class="text-primary read-more">Baca selengkapnya...</span>
-                                        @endif
-                                    </p>
+                                    <div class="description-preview">
+                                        @php
+                                            $description = $esk->deskripsi ?? 'Deskripsi ekstrakurikuler belum tersedia.';
+                                            // Replace multiple newlines with paragraphs
+                                            $description = preg_replace('/\n\s*\n/', '</p><p>', $description);
+                                            // Convert remaining newlines to <br>
+                                            $description = nl2br($description);
+                                            // Get first 150 characters but preserve word boundaries
+                                            $shortDesc = \Str::words(strip_tags($description), 30, '...');
+                                        @endphp
+                                        <p class="mb-0" style="white-space: pre-line;">
+                                            {!! $shortDesc !!}
+                                            @if(strlen(strip_tags($description)) > strlen(strip_tags($shortDesc)))
+                                                <span class="text-primary read-more">Baca selengkapnya...</span>
+                                            @endif
+                                        </p>
+                                    </div>
                                 </div>
 
                                 {{-- Logo Ekskul --}}
@@ -300,7 +311,20 @@
                                         @endif
                                     </div>
                                     <div class="description-content" style="font-size: 1.1rem; line-height: 1.7;">
-                                        {{ $esk->deskripsi ?? 'Deskripsi ekstrakurikuler belum tersedia.' }}
+                                        @php
+                                            $description = $esk->deskripsi ?? 'Deskripsi ekstrakurikuler belum tersedia.';
+                                            // Replace multiple newlines with paragraphs
+                                            $description = preg_replace('/\n\s*\n/', '</p><p>', $description);
+                                            // Convert remaining newlines to <br>
+                                            $description = nl2br($description);
+                                            // Wrap in paragraph if not already
+                                            if (!str_starts_with(trim($description), '<p>')) {
+                                                $description = '<p>' . $description . '</p>';
+                                            }
+                                        @endphp
+                                        <div style="white-space: pre-line;">
+                                            {!! $description !!}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
