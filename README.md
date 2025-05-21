@@ -43,6 +43,11 @@ Selamat datang di **Ekskul Management System (EMS)**, sebuah aplikasi berbasis L
 
 ---
 
+## 🔐 Login Admin
+Untuk mengakses panel admin, gunakan kredensial berikut:
+- Email: admin@gmail.com
+- Password: 12345
+
 ---
 
 ## 🚀 Cara Menggunakan Proyek Ini
