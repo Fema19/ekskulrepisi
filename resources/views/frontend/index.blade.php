@@ -397,6 +397,10 @@
         transition: opacity 0.3s ease;
     }
 
+    .kegiatan-card:hover .image-overlay {
+        opacity: 1;
+    }
+
     .overlay-text {
         color: white;
         font-weight: 500;
@@ -404,16 +408,8 @@
         transition: transform 0.3s ease;
     }
 
-    .kegiatan-card:hover .image-overlay {
-        opacity: 1;
-    }
-
     .kegiatan-card:hover .overlay-text {
         transform: translateY(0);
-    }
-
-    .kegiatan-card:hover .kegiatan-image {
-        transform: scale(1.1);
     }
 
     /* Card Content */
@@ -679,6 +675,158 @@
     .btn-secondary:hover {
         background: var(--text-color);
         transform: translateY(-2px);
+    }
+
+    /* Floating Social Media Navbar */
+    .floating-social {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    [data-bs-theme="dark"] .floating-social {
+        background: rgba(45, 50, 56, 0.95);
+    }
+
+    .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Instagram gradient background */
+    .social-link.instagram {
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #ffd34f 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+
+    /* WhatsApp brand color */
+    .social-link.whatsapp {
+        background: #25D366;
+    }
+
+    .social-link:hover {
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Pulse animation on hover */
+    .social-link::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        border-radius: 50%;
+        z-index: -1;
+        animation: none;
+        opacity: 0.7;
+    }
+
+    .social-link:hover::after {
+        animation: pulse 1s cubic-bezier(0.66, 0, 0, 1) infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 0.7;
+        }
+        100% {
+            transform: scale(1.5);
+            opacity: 0;
+        }
+    }
+
+    /* Tooltip styles */
+    .social-link::before {
+        content: attr(data-tooltip);
+        position: absolute;
+        right: 120%;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .social-link:hover::before {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .social-icon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+
+    [data-bs-theme="dark"] .social-icon {
+        filter: brightness(0) invert(1);
+    }
+
+    /* Active state */
+    .social-link:active {
+        transform: scale(0.95);
+    }
+
+    @media (max-width: 768px) {
+        .floating-social {
+            bottom: 15px;
+            right: 15px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+        }
+
+        .social-icon {
+            width: 25px;
+            height: 25px;
+        }
+
+        /* Hide tooltips on mobile */
+        .social-link::before {
+            display: none;
+        }
+    }
+
+    /* Add pulse animation */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .floating-social {
+        animation: pulse 2s infinite;
+    }
+
+    .floating-social:hover {
+        animation: none;
     }
 </style>
 
@@ -986,6 +1134,7 @@
                                             {!! $description !!}
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -1772,4 +1921,162 @@ function openKegiatanModal(modalId) {
     modal.show();
 }
 </script>
+
+{{-- Floating Social Media Navbar --}}
+<div class="floating-social">
+    <a href="https://www.instagram.com/japanclub_1garut/" target="_blank" class="social-link" title="Instagram">
+        <img src="https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000" alt="Instagram" class="social-icon">
+    </a>
+
+</div>
+
+<style>
+.floating-social {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.floating-social:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+[data-bs-theme="dark"] .floating-social {
+    background: rgba(45, 50, 56, 0.95);
+}
+
+.social-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    background: white;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+[data-bs-theme="dark"] .social-link {
+    background: rgba(60, 65, 71, 0.95);
+}
+
+.social-link::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    right: 120%;
+    top: 50%;
+    transform: translateY(-50%) scale(0.8);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
+}
+
+.social-link:hover {
+    transform: translateY(-5px) rotate(5deg);
+}
+
+.social-link:active {
+    transform: scale(0.95);
+}
+
+.social-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover .social-icon {
+    transform: scale(1.2);
+}
+
+/* Instagram specific styles */
+.social-link.instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    box-shadow: 0 5px 15px rgba(214, 36, 159, 0.3);
+}
+
+.social-link.instagram .social-icon {
+    filter: brightness(0) invert(1);
+}
+
+/* WhatsApp specific styles */
+.social-link.whatsapp {
+    background: #25D366;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+.social-link.whatsapp .social-icon {
+    filter: brightness(0) invert(1);
+}
+
+/* Dark mode adjustments */
+[data-bs-theme="dark"] .social-link.instagram,
+[data-bs-theme="dark"] .social-link.whatsapp {
+    opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .floating-social {
+        bottom: 15px;
+        right: 15px;
+        padding: 12px;
+    }
+
+    .social-link {
+        width: 45px;
+        height: 45px;
+    }
+
+    .social-icon {
+        width: 25px;
+        height: 25px;
+    }
+
+    .social-link::before {
+        display: none;
+    }
+}
+
+/* Add pulse animation */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.floating-social {
+    animation: pulse 2s infinite;
+}
+
+.floating-social:hover {
+    animation: none;
+}
+</style>
 @endsection
