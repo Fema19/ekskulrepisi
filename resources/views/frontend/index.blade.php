@@ -325,13 +325,13 @@
     <div class="row g-4 justify-content-center">
         @forelse($pembina as $p)
             <div class="col-md-6 col-lg-4">
-                <div class="card pembina-card shadow-sm border-0" 
+                <div class="card pembina-card shadow-sm border-0"
                      onclick="openPembinaModal('pembinaModal_{{ $p->nip }}')"
                      style="cursor: pointer;">
                     {{-- Foto Pembina --}}
                     <div class="pembina-image">
                         @if($p->foto_profil)
-                            <img src="{{ asset('storage/' . $p->foto_profil) }}" 
+                            <img src="{{ asset('storage/' . $p->foto_profil) }}"
                                  alt="Foto {{ $p->nama_pembina }}"
                                  loading="lazy">
                         @else
@@ -370,7 +370,7 @@
                                     <div class="col-md-4">
                                         <div class="modal-image h-100">
                                             @if($p->foto_profil)
-                                                <img src="{{ asset('storage/' . $p->foto_profil) }}" 
+                                                <img src="{{ asset('storage/' . $p->foto_profil) }}"
                                                      alt="Foto {{ $p->nama_pembina }}"
                                                      class="w-100 h-100"
                                                      style="object-fit: cover;">
