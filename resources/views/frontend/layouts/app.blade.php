@@ -267,6 +267,33 @@
             scroll-padding-top: 100px;
             scroll-behavior: smooth;
         }
+
+        /* Custom styles for the masonry layout */
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            margin: -0.625rem;
+        }
+
+        .grid-sizer,
+        .grid-item {
+            width: calc(33.333% - 1.25rem);
+            margin: 0.625rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-sizer,
+            .grid-item {
+                width: calc(50% - 1.25rem);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .grid-sizer,
+            .grid-item {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -332,6 +359,8 @@
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 
     <!-- Navbar Scroll Effect -->
     <script>

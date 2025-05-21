@@ -116,6 +116,570 @@
         opacity: 1;
         transform: translateY(0);
     }
+
+    /* Kegiatan Section Styles */
+    .text-gradient {
+        background: linear-gradient(45deg, var(--primary-color), #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    /* Filter Buttons */
+    .btn-filter {
+        padding: 0.6rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 500;
+        color: var(--text-muted);
+        background: transparent;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .btn-filter:hover {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .btn-filter.active {
+        background: linear-gradient(45deg, var(--primary-color), #ff6b6b);
+        color: white;
+        border-color: transparent;
+    }
+
+    /* Kegiatan Card */
+    .kegiatan-card {
+        border-radius: 1rem;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .kegiatan-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(var(--primary-color-rgb), 0.15);
+    }
+
+    /* Card Image */
+    .card-img-wrapper {
+        position: relative;
+        height: 240px;
+        overflow: hidden;
+    }
+
+    .card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .kegiatan-card:hover .card-img {
+        transform: scale(1.1);
+    }
+
+    .placeholder-img {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        font-size: 3rem;
+        color: #adb5bd;
+    }
+
+    /* Image Overlay */
+    .img-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(var(--primary-color-rgb), 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .kegiatan-card:hover .img-overlay {
+        opacity: 1;
+    }
+
+    .overlay-content {
+        color: white;
+        text-align: center;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+    }
+
+    .kegiatan-card:hover .overlay-content {
+        transform: translateY(0);
+    }
+
+    .overlay-content i {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Kegiatan Badge */
+    .kegiatan-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4rem 1rem;
+        background: linear-gradient(45deg, var(--primary-color), #ff6b6b);
+        color: white;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .kegiatan-badge i {
+        margin-right: 5px;
+        font-size: 0.8rem;
+    }
+
+    /* Modal Styles */
+    .kegiatan-modal .modal-content {
+        border: none;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .kegiatan-modal .modal-header {
+        background: linear-gradient(45deg, var(--primary-color), #ff6b6b);
+        color: white;
+        padding: 1.5rem;
+    }
+
+    .kegiatan-modal .modal-img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .kegiatan-modal .kegiatan-info {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--card-bg);
+        border-radius: 1rem;
+        color: var(--text-muted);
+    }
+
+    .empty-state i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+
+    .empty-state p {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state span {
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    /* Masonry Grid */
+    .kegiatan-grid {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    /* Animations */
+    .kegiatan-item {
+        animation: fadeInUp 0.6s ease backwards;
+        animation-delay: calc(var(--animation-order) * 0.1s);
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+        background: linear-gradient(45deg, var(--primary-color), #ff6b6b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    /* Filter Buttons */
+    .kegiatan-filter {
+        margin-bottom: 2rem;
+    }
+
+    .btn-filter {
+        padding: 0.75rem 1.5rem;
+        border: 2px solid var(--primary-color);
+        background: transparent;
+        color: var(--text-color);
+        border-radius: 50px;
+        margin: 0 0.5rem;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .btn-filter:hover, .btn-filter.active {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    /* Kegiatan Card */
+    .kegiatan-card {
+        background: var(--card-bg);
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        cursor: pointer;
+    }
+
+    .kegiatan-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+    }
+
+    /* Card Image */
+    .card-image-wrapper {
+        position: relative;
+        height: 240px;
+        overflow: hidden;
+    }
+
+    .kegiatan-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .placeholder-image {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+        font-size: 3rem;
+        color: #adb5bd;
+    }
+
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .overlay-text {
+        color: white;
+        font-weight: 500;
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+    }
+
+    .kegiatan-card:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .kegiatan-card:hover .overlay-text {
+        transform: translateY(0);
+    }
+
+    .kegiatan-card:hover .kegiatan-image {
+        transform: scale(1.1);
+    }
+
+    /* Card Content */
+    .card-content {
+        padding: 1.5rem;
+    }
+
+    .kegiatan-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
+
+    .kegiatan-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(45deg, var(--primary-color), #ff6b6b);
+        color: white;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    .kegiatan-preview {
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .kegiatan-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.875rem;
+        color: var(--text-muted);
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Modal Styles */
+    .kegiatan-modal .modal-content {
+        border: none;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .kegiatan-modal .modal-header {
+        background: linear-gradient(45deg, var(--primary-color), #ff6b6b);
+        color: white;
+        border: none;
+    }
+
+    .kegiatan-modal .btn-close {
+        color: white;
+    }
+
+    .modal-image {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 0.5rem;
+    }
+
+    .kegiatan-details {
+        line-height: 1.8;
+        color: var(--text-color);
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--card-bg);
+        border-radius: 1rem;
+        color: var(--text-muted);
+    }
+
+    .empty-state i {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .empty-state p {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state span {
+        font-size: 0.875rem;
+    }
+
+    /* Masonry Grid */
+    .kegiatan-grid {
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .kegiatan-grid.loaded {
+        opacity: 1;
+    }
+
+    /* Card Image */
+    .card-image-wrapper {
+        position: relative;
+        height: 180px; /* Reduced from 240px */
+        overflow: hidden;
+    }
+
+    .kegiatan-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    /* Modal Image */
+    .modal-image {
+        width: 100%;
+        max-height: 300px; /* Reduced from 400px */
+        object-fit: cover;
+        border-radius: 0.5rem;
+    }
+
+    /* Kegiatan Grid */
+    .kegiatan-grid {
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+
+    /* Card Styles */
+    .kegiatan-card {
+        background: var(--card-bg);
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .kegiatan-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+    }
+
+    .card-image-wrapper {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .kegiatan-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .kegiatan-card:hover .kegiatan-image {
+        transform: scale(1.1);
+    }
+
+    .card-content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .kegiatan-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
+
+    .kegiatan-preview {
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+    }
+
+    .kegiatan-meta {
+        margin-top: auto;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--card-bg);
+        border-radius: 1rem;
+        color: var(--text-muted);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+        opacity: 0.5;
+    }
+
+    /* Read More Button */
+    .read-more {
+        display: inline-block;
+        text-decoration: none;
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-top: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .read-more:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+
+    /* Kegiatan Details */
+    .kegiatan-details {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-color);
+    }
+
+    /* Modal */
+    .modal-body {
+        padding: 2rem;
+    }
+
+    .modal-footer {
+        border-top: none;
+        padding: 0 2rem 2rem;
+    }
+
+    .btn-secondary {
+        background: var(--text-muted);
+        border: none;
+        padding: 0.5rem 2rem;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background: var(--text-color);
+        transform: translateY(-2px);
+    }
 </style>
 
 <script>
@@ -142,6 +706,89 @@
             });
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Masonry
+        var grid = document.querySelector('.kegiatan-grid');
+        var masonry = new Masonry(grid, {
+            itemSelector: '.kegiatan-item',
+            percentPosition: true
+        });
+
+        // Set animation order
+        document.querySelectorAll('.kegiatan-item').forEach((item, index) => {
+            item.style.setProperty('--animation-order', index);
+        });
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.btn-filter');
+        const kegiatanItems = document.querySelectorAll('.kegiatan-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                kegiatanItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Re-layout Masonry
+                masonry.layout();
+            });
+        });
+
+        // Modal functionality
+        window.openKegiatanModal = function(modalId) {
+            const modal = new bootstrap.Modal(document.getElementById(modalId));
+            modal.show();
+        };
+
+        // Image error handling
+        document.querySelectorAll('.card-img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                this.parentElement.innerHTML = `
+                    <div class="placeholder-img">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                `;
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Masonry
+        var msnry = new Masonry('.kegiatan-grid .row', {
+            itemSelector: '.kegiatan-item',
+            percentPosition: true
+        });
+
+        // Show grid after layout
+        setTimeout(() => {
+            document.querySelector('.kegiatan-grid').classList.add('loaded');
+        }, 100);
+
+        // Initialize Modals
+        const modals = document.querySelectorAll('.kegiatan-modal');
+        modals.forEach(modal => {
+            new bootstrap.Modal(modal);
+        });
+    });
+
+    // Function to open kegiatan modal
+    function openKegiatanModal(modalId) {
+        const modal = new bootstrap.Modal(document.getElementById(modalId));
+        modal.show();
+    }
 </script>
 @endsection
 
@@ -860,98 +1507,269 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 {{-- Section Kegiatan Ekskul --}}
-<style>
-    .card.shadow-sm:hover {
-        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.25) !important;
-        transform: translateY(-5px);
-        transition: all 0.3s ease;
-    }
-
-    details summary {
-        cursor: pointer;
-        font-weight: 500;
-        margin-top: 8px;
-        list-style: none;
-        color: inherit;
-    }
-
-    details[open] summary::after {
-        content: " (sembunyikan)";
-        font-weight: normal;
-        font-size: 0.9em;
-        color: #6c757d;
-    }
-
-    details:not([open]) summary::after {
-        content: " (baca selengkapnya)";
-        font-weight: normal;
-        font-size: 0.9em;
-        color: #6c757d;
-    }
-</style>
-
 <div class="mb-5" id="daftar-kegiatan-section">
-    <h2 class="fw-bold text-primary text-center display-5 mb-4">Daftar Kegiatan Ekskul</h2>
-    <hr class="w-25 mx-auto border-3 border-primary mb-5">
+    <h2 class="fw-bold section-title text-center display-5 mb-4">
+        <span class="gradient-text">Daftar Kegiatan Ekskul</span>
+    </h2>
+    <p class="text-center text-muted mb-5">Jelajahi berbagai kegiatan menarik dari ekstrakurikuler kami</p>
 
-    <div class="row g-4 justify-content-center">
-        @forelse($kegiatan as $keg)
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow-sm rounded-4 h-100 border-0 scroll-fade">
-                    {{-- Gambar --}}
-                    <div class="card-img-hover">
-                        @if($keg->foto)
-                            <img src="{{ asset('storage/' . $keg->foto) }}"
-                                class="card-img-top rounded-top"
-                                alt="{{ $keg->nama_kegiatan }}"
-                                style="height: 220px; object-fit: cover;">
-                        @else
-                            <div class="d-flex justify-content-center align-items-center bg-light rounded-top" style="height: 220px;">
-                                <i class="fa-solid fa-calendar-days fa-5x text-secondary"></i>
+    {{-- Kegiatan Grid --}}
+    <div class="kegiatan-grid">
+        <div class="row justify-content-center g-4">
+            @forelse($kegiatan as $keg)
+                <div class="col-sm-6 col-lg-4">
+                    <div class="kegiatan-card h-100">
+                        {{-- Gambar dengan overlay --}}
+                        <div class="card-image-wrapper">
+                            @if($keg->foto)
+                                <img src="{{ asset('storage/' . $keg->foto) }}"
+                                     alt="{{ $keg->nama_kegiatan }}"
+                                     class="kegiatan-image"
+                                     loading="lazy">
+                            @else
+                                <div class="placeholder-image">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                </div>
+                            @endif
+                            <div class="image-overlay">
+                                <span class="overlay-text">Lihat Detail</span>
                             </div>
-                        @endif
-                    </div>
-
-                    {{-- Konten --}}
-                    <div class="card-body">
-                        <h5 class="card-title fw-semibold mb-3">{{ $keg->nama_kegiatan }}</h5>
-                        <div class="custom-badge mb-3">
-                            <i class="fas fa-calendar-check me-1"></i>Kegiatan
                         </div>
 
-                        @php
-                            $plainText = strip_tags($keg->deskripsi ?? 'Tidak ada deskripsi.');
-                            // Ambil kalimat pertama
-                            preg_match('/^.*?[.!?](\s|$)/', $plainText, $matches);
-                            $firstSentence = $matches[0] ?? $plainText;
-                            $remainingText = trim(str_replace($firstSentence, '', $plainText));
-                        @endphp
+                        {{-- Konten --}}
+                        <div class="card-content">
+                            <h5 class="kegiatan-title">{{ $keg->nama_kegiatan }}</h5>
+                            @php
+                                $plainText = strip_tags($keg->deskripsi ?? 'Tidak ada deskripsi.');
+                                $shortDesc = Str::limit($plainText, 100);
+                            @endphp
+                            <div class="kegiatan-preview">
+                                <p>{{ $shortDesc }}</p>
+                                @if(strlen($plainText) > 100)
+                                    <button class="btn btn-link text-primary p-0 read-more" onclick="openKegiatanModal('kegiatanModal_{{ $keg->id }}')">
+                                        Baca selengkapnya...
+                                    </button>
+                                @endif
+                            </div>
+                            <div class="kegiatan-meta">
+                                <span class="meta-item">
+                                    <i class="far fa-calendar me-2"></i>
+                                    {{ $keg->tanggal ? \Carbon\Carbon::parse($keg->tanggal)->translatedFormat('d M Y') : '-' }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
 
-                        @if($remainingText)
-                            <p class="text-muted">{{ $firstSentence }}</p>
-                            <details>
-                                <summary class="text-muted">Lanjutkan membaca</summary>
-                                <p class="mt-2 text-muted">{{ $remainingText }}</p>
-                            </details>
-                        @else
-                            <p class="text-muted">{{ $plainText }}</p>
-                        @endif
-
-                        {{-- Tanggal --}}
-                        <ul class="list-unstyled small text-muted mt-3 mb-0">
-                            <li>
-                                <i class="fa-regular fa-calendar me-2"></i>
-                                <strong>Tanggal:</strong>
-                                {{ $keg->tanggal ? \Carbon\Carbon::parse($keg->tanggal)->translatedFormat('d M Y') : '-' }}
-                            </li>
-                        </ul>
+                    {{-- Modal for detailed view --}}
+                    <div class="modal fade kegiatan-modal" id="kegiatanModal_{{ $keg->id }}" tabindex="-1">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">{{ $keg->nama_kegiatan }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @if($keg->foto)
+                                        <img src="{{ asset('storage/' . $keg->foto) }}"
+                                             alt="{{ $keg->nama_kegiatan }}"
+                                             class="modal-image mb-4"
+                                             loading="lazy">
+                                    @endif
+                                    <div class="kegiatan-details">
+                                        {!! $keg->deskripsi ?? 'Tidak ada deskripsi.' !!}
+                                    </div>
+                                    <div class="kegiatan-meta mt-4">
+                                        <div class="meta-item mb-2">
+                                            <i class="far fa-calendar me-2"></i>
+                                            <strong>Tanggal:</strong>
+                                            {{ $keg->tanggal ? \Carbon\Carbon::parse($keg->tanggal)->translatedFormat('d M Y') : '-' }}
+                                        </div>
+                                        @if($keg->waktu)
+                                        <div class="meta-item mb-2">
+                                            <i class="far fa-clock me-2"></i>
+                                            <strong>Waktu:</strong>
+                                            {{ $keg->waktu }}
+                                        </div>
+                                        @endif
+                                        @if($keg->lokasi)
+                                        <div class="meta-item">
+                                            <i class="fas fa-map-marker-alt me-2"></i>
+                                            <strong>Lokasi:</strong>
+                                            {{ $keg->lokasi }}
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @empty
-            <p class="text-center text-muted fst-italic">Belum ada data kegiatan.</p>
-        @endforelse
+            @empty
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-xmark"></i>
+                        <p>Belum ada data kegiatan.</p>
+                        <span>Kegiatan akan ditampilkan di sini setelah ditambahkan.</span>
+                    </div>
+                </div>
+            @endforelse
+        </div>
     </div>
 </div>
 
+<style>
+    /* Kegiatan Grid */
+    .kegiatan-grid {
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+
+    /* Card Styles */
+    .kegiatan-card {
+        background: var(--card-bg);
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .kegiatan-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+    }
+
+    .card-image-wrapper {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .kegiatan-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .kegiatan-card:hover .kegiatan-image {
+        transform: scale(1.1);
+    }
+
+    .card-content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .kegiatan-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
+
+    .kegiatan-preview {
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        flex-grow: 1;
+    }
+
+    .kegiatan-meta {
+        margin-top: auto;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--card-bg);
+        border-radius: 1rem;
+        color: var(--text-muted);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+        opacity: 0.5;
+    }
+
+    /* Read More Button */
+    .read-more {
+        display: inline-block;
+        text-decoration: none;
+        color: var(--primary-color);
+        font-weight: 500;
+        margin-top: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .read-more:hover {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+
+    /* Kegiatan Details */
+    .kegiatan-details {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-color);
+    }
+
+    /* Modal */
+    .modal-body {
+        padding: 2rem;
+    }
+
+    .modal-footer {
+        border-top: none;
+        padding: 0 2rem 2rem;
+    }
+
+    .btn-secondary {
+        background: var(--text-muted);
+        border: none;
+        padding: 0.5rem 2rem;
+        border-radius: 50px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+        background: var(--text-color);
+        transform: translateY(-2px);
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Modals
+    document.querySelectorAll('.kegiatan-modal').forEach(modal => {
+        new bootstrap.Modal(modal);
+    });
+});
+
+// Function to open kegiatan modal
+function openKegiatanModal(modalId) {
+    const modal = new bootstrap.Modal(document.getElementById(modalId));
+    modal.show();
+}
+</script>
 @endsection
