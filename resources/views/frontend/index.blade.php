@@ -1119,22 +1119,8 @@
                                         @endif
                                     </div>
                                     <div class="description-content" style="font-size: 1.1rem; line-height: 1.7;">
-                                        @php
-                                            $description = $esk->deskripsi ?? 'Deskripsi ekstrakurikuler belum tersedia.';
-                                            // Replace multiple newlines with paragraphs
-                                            $description = preg_replace('/\n\s*\n/', '</p><p>', $description);
-                                            // Convert remaining newlines to <br>
-                                            $description = nl2br($description);
-                                            // Wrap in paragraph if not already
-                                            if (!str_starts_with(trim($description), '<p>')) {
-                                                $description = '<p>' . $description . '</p>';
-                                            }
-                                        @endphp
-                                        <div style="white-space: pre-line;">
-                                            {!! $description !!}
-                                        </div>
+                                        {!! nl2br(e($esk->deskripsi)) !!}
                                     </div>
-                                </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
