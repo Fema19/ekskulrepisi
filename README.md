@@ -72,6 +72,7 @@ composer install
 ```
 
 Instal ApexCharts untuk visualisasi data:
+
 ```bash
 npm install apexcharts
 ```
