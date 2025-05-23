@@ -15,6 +15,16 @@ class DashboardController extends Controller
     public function index()
     {
         try {
+            // Initialize date variables first
+            $today = now();
+            $lastWeek = now()->subDays(6);
+            $dates = collect();
+
+            // Generate array of dates for the last 7 days
+            for ($i = 0; $i < 7; $i++) {
+                $dates->push($today->copy()->subDays($i)->format('Y-m-d'));
+            }
+
             // Get current counts
             $totalAnggota = Anggota::count();
             $totalEkskul = Ekskul::count();
@@ -22,15 +32,31 @@ class DashboardController extends Controller
             $totalKegiatan = Kegiatan::count();
             $totalPembina = Pembina::count();
 
-            // Get trend data for the last 7 days
-            $today = now();
-            $lastWeek = now()->subDays(6);
+            // Get pembina trend data
+            $pembinaData = Pembina::whereBetween('created_at', [$lastWeek, $today])
+                ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+                ->groupBy('date')
+                ->orderBy('date')
+                ->pluck('count', 'date')
+                ->toArray();
 
-            // Generate array of dates for the last 7 days
-            $dates = collect();
-            for ($i = 0; $i < 7; $i++) {
-                $dates->push($today->copy()->subDays($i)->format('Y-m-d'));
-            }
+            // Fill in missing dates with zeros
+            $pembinaTrend = $dates->map(function ($date) use ($pembinaData) {
+                return $pembinaData[$date] ?? 0;
+            })->reverse()->values()->toArray();
+
+            // Get anggota baru trend data (last 7 days)
+            $anggotaBaruData = Anggota::whereBetween('created_at', [$lastWeek, $today])
+                ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+                ->groupBy('date')
+                ->orderBy('date')
+                ->pluck('count', 'date')
+                ->toArray();
+
+            // Fill in missing dates with zeros
+            $anggotaBaruTrend = $dates->map(function ($date) use ($anggotaBaruData) {
+                return $anggotaBaruData[$date] ?? 0;
+            })->reverse()->values()->toArray();
 
             // Get anggota trend data
             $anggotaData = Anggota::whereBetween('created_at', [$lastWeek, $today])
@@ -86,7 +112,9 @@ class DashboardController extends Controller
                 'ekskulDenganAnggota',
                 'generasiList',
                 'anggotaTrend',
-                'kegiatanTrend'
+                'kegiatanTrend',
+                'pembinaTrend',
+                'anggotaBaruTrend'
             ));
 
         } catch (\Exception $e) {
