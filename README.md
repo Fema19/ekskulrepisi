@@ -71,6 +71,11 @@ cd ekstrakurikuler
 composer install
 ```
 
+Instal ApexCharts untuk visualisasi data:
+```bash
+npm install apexcharts
+```
+
 ### 3. Konfigurasi Environment
 
 Buat file `.env` berdasarkan `.env.example`:
