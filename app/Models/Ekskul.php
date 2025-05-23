@@ -16,5 +16,9 @@ class Ekskul extends Model
     {
         return $this->hasMany(Pembina::class, 'id_ekskul');
     }
-
+    // Relasi ke tabel anggota
+    public function anggota()
+    {
+        return $this->hasMany(Anggota::class, 'id_ekskul');
+    }
 }

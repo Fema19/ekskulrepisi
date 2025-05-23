@@ -7,6 +7,7 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PembinaController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\DashboardController; // ← Controller Dashboard
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,20 +21,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Halaman utama (Frontend)
+// Halaman Utama (Frontend)
 Route::get('/', [FrontEndController::class, 'index'])->name('frontend');
 
 // Login & Logout
 Route::get('/sesi', [SessionController::class, 'index'])->name('login');
-Route::post('/sesi/login', [SessionController::class, 'login']);
-Route::get('/sesi/logout', [SessionController::class, 'logout']);
+Route::post('/sesi/login', [SessionController::class, 'login'])->name('sesi.login');
+Route::get('/sesi/logout', [SessionController::class, 'logout'])->name('sesi.logout');
 
-// Dashboard (hanya bisa diakses jika login)
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard')->middleware('auth');
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('auth');
 
-// Semua route CRUD yang dilindungi dengan middleware auth
+// Semua route CRUD yang dilindungi middleware auth
 Route::middleware('auth')->group(function () {
     Route::resource('jabatan', JabatanController::class);
     Route::resource('ekskul', EkskulController::class);
