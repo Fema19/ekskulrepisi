@@ -1578,6 +1578,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'sekretaris' => 3,
             'bendahara' => 4,
             'anggota' => 5,
+            'npc' => 6,
         ];
     @endphp
 
