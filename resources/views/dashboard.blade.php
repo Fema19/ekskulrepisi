@@ -131,7 +131,7 @@
                                             @foreach($groupedAnggota->take(2) as $generasi => $anggotaPerGen)
                                                 <div class="mb-4" data-generasi="{{ $generasi }}">
                                                     <div class="d-flex align-items-center mb-3">
-                                                        <div class="generation-badge {{ $loop->parent->first ? 'bg-white text-primary' : 'bg-primary text-white' }} rounded-circle d-flex align-items-center justify-content-center me-2" 
+                                                        <div class="generation-badge {{ $loop->parent->first ? 'bg-white text-primary' : 'bg-primary text-white' }} rounded-circle d-flex align-items-center justify-content-center me-2"
                                                              style="width: 32px; height: 32px;">
                                                             <span class="fw-bold">{{ $generasi }}</span>
                                                         </div>
@@ -212,7 +212,7 @@
                                                     @foreach($groupedAnggota as $generasi => $anggotaPerGen)
                                                         <div class="generation-section mb-4" data-generasi="{{ $generasi }}">
                                                             <div class="d-flex align-items-center mb-3">
-                                                                <div class="generation-badge bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2" 
+                                                                <div class="generation-badge bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
                                                                      style="width: 35px; height: 35px;">
                                                                     <span class="fw-bold">{{ $generasi }}</span>
                                                                 </div>
@@ -332,7 +332,94 @@
 @endsection
 
 @section('styles')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <style>
+    /* Welcome overlay styles */
+    .welcome-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .welcome-content {
+        text-align: center;
+        position: relative;
+        padding: 2rem;
+    }
+
+    #sakura-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+    }
+
+    .welcome-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #f8f9fa;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .welcome-text {
+        font-size: 2.5em;
+        opacity: 0;
+        background: linear-gradient(45deg, #0d6efd, #198754);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+
+    .japanese-character {
+        font-size: 4.5em;
+        opacity: 0;
+        background: linear-gradient(45deg, #dc3545, #fd7e14);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5em;
+        font-family: 'Yu Mincho', 'MS Mincho', serif;
+        letter-spacing: 0.1em;
+    }
+
+    .sakura {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        background: linear-gradient(135deg, #ffb7c5 0%, #ffd1dc 100%);
+        border-radius: 12px 0;
+        opacity: 0;
+        transform: rotate(45deg);
+        box-shadow: 0 0 5px rgba(255, 183, 197, 0.3);
+    }
+
+    @keyframes floatY {
+        0%, 100% { transform: translateY(0) rotate(45deg); }
+        50% { transform: translateY(-20px) rotate(45deg); }
+    }
+
+    @keyframes floatX {
+        0%, 100% { transform: translateX(0) rotate(45deg); }
+        50% { transform: translateX(20px) rotate(45deg); }
+    }
+
     .hover-card {
         transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
@@ -350,19 +437,68 @@
     }
 
     .ekskul-card {
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ekskul-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+        transform: translateX(-100%);
+        transition: transform 0.6s;
     }
 
     .ekskul-card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .ekskul-card:hover::before {
+        transform: translateX(100%);
     }
 
     .member-card {
-        transition: all 0.2s ease;
+        animation: slideIn 0.3s ease-out forwards;
+        animation-play-state: paused;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .member-card.visible {
+        animation-play-state: running;
     }
 
     .member-card:hover {
-        transform: translateX(5px);
+        transform: translateX(5px) scale(1.02);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    /* Scroll reveal animation for member cards */
+    .scroll-reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scroll-reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     ::-webkit-scrollbar {
@@ -394,8 +530,94 @@
 @endsection
 
 @section('scripts')
+<!-- Welcome overlay -->
+<div id="welcome-overlay" class="welcome-overlay">
+    <div class="welcome-content">
+        <div class="japanese-character" id="japanese-welcome">ようこそ</div>
+        <div class="welcome-text" id="welcome-text">Welcome to Dashboard</div>
+        <div id="sakura-container"></div>
+    </div>
+</div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Welcome animation
+    const welcomeAnimation = () => {
+        const overlay = document.getElementById('welcome-overlay');
+        const japaneseText = document.getElementById('japanese-welcome');
+        const welcomeText = document.getElementById('welcome-text');
+        const sakuraContainer = document.getElementById('sakura-container');
+
+        // Create sakura petals
+        for (let i = 0; i < 20; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'sakura';
+            sakuraContainer.appendChild(petal);
+        }
+
+        // Animate welcome elements
+        anime.timeline({
+            easing: 'easeOutExpo'
+        })
+        .add({
+            targets: japaneseText,
+            opacity: [0, 1],
+            translateY: [-50, 0],
+            duration: 1200
+        })
+        .add({
+            targets: welcomeText,
+            opacity: [0, 1],
+            translateY: [-20, 0],
+            duration: 1000
+        }, '-=800')
+        .add({
+            targets: '.sakura',
+            opacity: [0, 0.8],
+            scale: [0.5, 1],
+            rotate: function() { return anime.random(-45, 45) },
+            translateX: function() { return anime.random(-30, 30) },
+            translateY: function() { return anime.random(-30, 30) },
+            delay: anime.stagger(100),
+            duration: 1200
+        }, '-=800')
+        .add({
+            targets: overlay,
+            opacity: 0,
+            duration: 1000,
+            easing: 'easeInExpo',
+            complete: function() {
+                overlay.style.display = 'none';
+                startSakuraAnimation();
+            }
+        }, '+=500');
+    };
+
+    // Continuous sakura animation after welcome screen
+    const startSakuraAnimation = () => {
+        setInterval(() => {
+            const petal = document.createElement('div');
+            petal.className = 'sakura';
+            document.body.appendChild(petal);
+
+            const startPosX = Math.random() * window.innerWidth;
+            const endPosX = startPosX + (Math.random() * 200 - 100);
+
+            anime({
+                targets: petal,
+                translateX: [startPosX, endPosX],
+                translateY: ['-5vh', '105vh'],
+                rotate: [0, anime.random(-360, 360)],
+                opacity: [0.8, 0],
+                duration: anime.random(4000, 6000),
+                easing: 'easeOutCirc',
+                complete: () => petal.remove()
+            });
+        }, 300);
+    };
+
+    welcomeAnimation();
+
     const defaultChartOptions = {
         chart: {
             height: 100,
@@ -468,11 +690,29 @@ document.addEventListener('DOMContentLoaded', function() {
         colors: ['#0d6efd']
     }).render();
 
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '20px'
+    });
+
+    // Observe member cards for scroll reveal
+    document.querySelectorAll('.member-card').forEach(card => {
+        card.classList.add('scroll-reveal');
+        observer.observe(card);
+    });
+
     // Generasi Filter
     document.getElementById('generasiFilter').addEventListener('change', function() {
         const generasi = this.value;
         const ekskulCards = document.querySelectorAll('.ekskul-card');
-        
+
         ekskulCards.forEach(card => {
             const anggotaDivs = card.querySelectorAll('[data-generasi]');
             if (anggotaDivs.length === 0) return;
@@ -485,7 +725,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     div.getAttribute('data-generasi') === generasi
                 );
                 card.style.display = hasGenerasi ? 'block' : 'none';
-                
+
                 anggotaDivs.forEach(div => {
                     div.style.display = div.getAttribute('data-generasi') === generasi ? 'block' : 'none';
                 });
