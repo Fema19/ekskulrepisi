@@ -11,6 +11,17 @@ Selamat datang di **Ekskul Management System (EMS)**, sebuah aplikasi berbasis L
 3. **Relasi Data**: Pembina dan ekskul terhubung dengan rapi melalui foreign key. Seperti hubungan antara kopi dan programmer—tidak bisa dipisahkan.
 4. **Upload Foto Profil**: Unggah foto profil pembina atau logo ekskul. Jangan lupa pakai filter Instagram supaya lebih kece!
 5. **Responsive Design**: Bisa diakses dari laptop, tablet, atau HP. Karena kami tahu, kadang-kadang admin panel diakses sambil rebahan.
+6. **Japanese Club AI Assistant** 🤖:
+    - Chat bot pintar dengan tema Jepang yang siap membantu
+    - Dilengkapi animasi sakura yang memukau
+    - Quick suggestions untuk pertanyaan umum
+    - Belajar frasa bahasa Jepang dengan mudah
+    - Floating social media buttons untuk konektivitas
+    - Dark mode support untuk kenyamanan mata
+7. **Social Media Integration** 🌐:
+    - Tombol floating Instagram & WhatsApp
+    - Akses cepat ke media sosial Japanese Club
+    - Desain modern dengan efek hover yang menarik
 
 ---
 
@@ -41,9 +52,21 @@ Selamat datang di **Ekskul Management System (EMS)**, sebuah aplikasi berbasis L
 
 -   **Framework**: [Laravel](https://laravel.com/) (karena life is too short to write vanilla PHP).
 -   **Database**: MySQL (tempat kita menyimpan semua rahasia ekskul).
--   **Frontend**: Blade Templates + Bootstrap (simple, clean, dan responsive).
+-   **Frontend**:
+    -   Blade Templates + Bootstrap (simple, clean, dan responsive)
+    -   CSS3 Animations & Transitions (untuk efek visual yang memukau)
+    -   Custom Japanese-themed Components (sakura animation, pattern overlays)
 -   **Storage**: Public Disk Storage (untuk menyimpan foto profil dan logo ekskul).
 -   **Authentication**: Session-based login (karena kami percaya privasi itu penting).
+-   **AI Assistant**:
+    -   Natural Language Processing untuk chat
+    -   Suggestion Chips untuk navigasi cepat
+    -   Japanese Language Integration
+    -   Real-time Typing Indicators
+-   **Social Media**:
+    -   Floating Action Buttons
+    -   Instagram & WhatsApp Integration
+    -   Responsive Social Media Cards
 
 ---
 

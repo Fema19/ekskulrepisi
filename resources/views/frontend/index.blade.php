@@ -814,19 +814,81 @@
         }
     }
 
-    /* Add pulse animation */
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
+    /* Suggestion Chips Styles */
+    .suggestion-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 15px 0;
+        padding: 5px 0;
     }
 
-    .floating-social {
-        animation: pulse 2s infinite;
+    .suggestion-topics {
+        padding: 10px 15px;
+        background: rgba(0, 0, 0, 0.03);
+        border-radius: 12px;
+        margin-bottom: 15px;
     }
 
-    .floating-social:hover {
-        animation: none;
+    .topic-group {
+        margin-bottom: 10px;
+    }
+
+    .topic-label {
+        display: block;
+        font-size: 0.8rem;
+        color: #666;
+        margin-bottom: 5px;
+    }
+
+    .topic-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        color: #333;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .chip:hover {
+        background: #f8f9fa;
+        transform: translateY(-1px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .chip:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    [data-bs-theme="dark"] .suggestion-topics {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    [data-bs-theme="dark"] .topic-label {
+        color: #aaa;
+    }
+
+    [data-bs-theme="dark"] .chip {
+        background: #2d3238;
+        border-color: #3a3f44;
+        color: #fff;
+    }
+
+    [data-bs-theme="dark"] .chip:hover {
+        background: #3a3f44;
     }
 </style>
 
@@ -945,18 +1007,7 @@
 
 
 
-    {{-- Hero Section --}}
-    <div class="hero-section p-5 rounded-4 shadow mb-5 text-center position-relative overflow-hidden">
-        <div class="hero-content">
-            <div class="d-flex align-items-center justify-content-center mb-4 flex-wrap">
-                <img src="{{ asset('/img/logo-sekolah.png') }}" alt="Logo Sekolah" class="hero-logo animate-float">
-                <h1 class="display-4 fw-bold text-gradient mb-0">Selamat Datang di Halaman Ekstrakurikuler</h1>
-            </div>
-            <p class="lead mb-4 text-muted">Mari bergabung dan kembangkan bakatmu bersama kami!</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#ekskul-section" class="btn btn-primary btn-lg px-4">
-                  
-                </a>
+
 
             </div>
         </div>
@@ -1909,13 +1960,365 @@ function openKegiatanModal(modalId) {
 }
 </script>
 
-{{-- Floating Social Media Navbar --}}
-<div class="floating-social">
-    <a href="https://www.instagram.com/japanclub_1garut/" target="_blank" class="social-link" title="Instagram">
-        <img src="https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000" alt="Instagram" class="social-icon">
-    </a>
+{{-- Floating Social Media and AI Navbar --}}
+<div class="floating-container">
+    <div class="floating-social">
+        <a href="https://www.instagram.com/japanclub_1garut/" target="_blank" class="social-link instagram" title="Instagram">
+            <img src="https://img.icons8.com/?size=100&id=Xy10Jcu1L2Su&format=png&color=000000" alt="Instagram" class="social-icon">
+        </a>
+    </div>
 
+    <div class="floating-ai">
+        <div class="ai-toggle" id="aiToggle">
+            <i class="fas fa-robot"></i>
+            <span>Ask Me!</span>
+        </div>
+
+        <div class="ai-chat-container" id="aiChat">
+            <div class="ai-chat-header">
+                <h5>Japanese Club AI Assistant</h5>
+                <span class="close-ai">&times;</span>
+            </div>
+            <div class="ai-chat-messages" id="aiMessages">
+                <div class="message ai">
+                    Konnichiwa! 👋 Ada yang bisa saya bantu tentang Japanese Club?
+                </div>
+                <div class="suggestion-chips" id="suggestionChips">
+                    <button class="chip" data-query="kapan ekskul">⏰ Jadwal Ekskul</button>
+                    <button class="chip" data-query="cara daftar">📝 Cara Daftar</button>
+                    <button class="chip" data-query="kegiatan">🎯 Kegiatan</button>
+                    <button class="chip" data-query="biaya pendaftaran">💰 Biaya</button>
+                    <button class="chip" data-query="fasilitas">🎁 Fasilitas</button>
+                    <button class="chip" data-query="prestasi">🏆 Prestasi</button>
+                </div>
+            </div>
+            <div class="suggestion-topics" id="suggestionTopics">
+                <div class="topic-group">
+                    <span class="topic-label">Populer:</span>
+                    <div class="topic-chips">
+                        <button class="chip" data-query="syarat">Persyaratan</button>
+                        <button class="chip" data-query="event">Event</button>
+                        <button class="chip" data-query="kontak">Kontak</button>
+                    </div>
+                </div>
+                <div class="topic-group">
+                    <span class="topic-label">Belajar Jepang:</span>
+                    <div class="topic-chips">
+                        <button class="chip" data-query="ohayou">Ohayou</button>
+                        <button class="chip" data-query="konnichiwa">Konnichiwa</button>
+                        <button class="chip" data-query="arigatou">Arigatou</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ai-chat-input">
+                <input type="text" placeholder="Tanyakan sesuatu..." id="aiInput">
+                <button id="aiSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .floating-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 1000;
+    }
+
+    .floating-social {
+        display: flex;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    .floating-ai {
+        position: relative;
+    }
+
+    .ai-toggle {
+        background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+    .ai-toggle:hover {
+        transform: translateY(-2px);
+    }
+
+    .ai-chat-container {
+        position: absolute;
+        bottom: calc(100% + 15px);
+        right: 0;
+        width: 300px;
+        height: 400px;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .ai-chat-container.active {
+        display: flex;
+    }
+
+    .ai-chat-header {
+        padding: 15px;
+        background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .ai-chat-header h5 {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .close-ai {
+        cursor: pointer;
+        font-size: 1.5rem;
+    }
+
+    .ai-chat-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .message {
+        max-width: 80%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+    }
+
+    .message.user {
+        align-self: flex-end;
+        background: #E3F2FD;
+        color: #1565C0;
+        border-bottom-right-radius: 5px;
+    }
+
+    .message.ai {
+        align-self: flex-start;
+        background: #FFF3E0;
+        color: #E65100;
+        border-bottom-left-radius: 5px;
+    }
+
+    .ai-chat-input {
+        padding: 15px;
+        display: flex;
+        gap: 10px;
+        border-top: 1px solid #eee;
+    }
+
+    .ai-chat-input input {
+        flex: 1;
+        padding: 8px 15px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        outline: none;
+    }
+
+    .ai-chat-input button {
+        background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .ai-chat-input button:hover {
+        transform: scale(1.1);
+    }
+
+    [data-bs-theme="dark"] .floating-social {
+        background: rgba(45, 50, 56, 0.95);
+    }
+
+    [data-bs-theme="dark"] .ai-chat-container {
+        background: #2d3238;
+        color: white;
+    }
+
+    [data-bs-theme="dark"] .ai-chat-input input {
+        background: #1a1d20;
+        border-color: #3a3f44;
+        color: white;
+    }
+
+    [data-bs-theme="dark"] .message.user {
+        background: #1a1d20;
+        color: #90CAF9;
+    }
+
+    [data-bs-theme="dark"] .message.ai {
+        background: #3a3f44;
+        color: #FFCC80;
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const aiToggle = document.getElementById('aiToggle');
+    const aiChat = document.getElementById('aiChat');
+    const closeAi = document.querySelector('.close-ai');
+    const aiInput = document.getElementById('aiInput');
+    const aiSend = document.getElementById('aiSend');
+    const aiMessages = document.getElementById('aiMessages');
+
+    // QA Database
+    const qaDatabase = {
+        // Informasi Dasar
+        'kapan ekskul': 'Kegiatan Japanese Club diadakan setiap hari Selasa dan Kamis setelah jam pelajaran sekolah.',
+        'dimana tempatnya': 'Japanese Club bertempat di Ruang Lab Bahasa, Lantai 2 Gedung Utama.',
+        'jam berapa': 'Kegiatan dimulai pukul 15:30 WIB sampai 17:00 WIB.',
+
+        // Pendaftaran
+        'daftar ekskul': 'Untuk mendaftar, silakan DM Instagram kami @japanclub_1garut atau datang langsung saat jadwal ekskul.',
+        'biaya pendaftaran': 'Biaya pendaftaran Japanese Club adalah Rp.50.000 termasuk seragam ekskul.',
+        'cara daftar': 'Cara mendaftar:\n1. Follow Instagram @japanclub_1garut\n2. DM untuk informasi pendaftaran\n3. Isi formulir pendaftaran\n4. Bayar biaya pendaftaran\n5. Selamat! Kamu sudah menjadi anggota.',
+
+        // Persyaratan
+        'syarat': 'Syarat bergabung:\n1. Siswa aktif\n2. Memiliki minat terhadap budaya Jepang\n3. Berkomitmen mengikuti kegiatan\n4. Siap mengikuti peraturan klub',
+        'apa saja yang dibawa': 'Yang perlu dibawa saat kegiatan:\n1. Alat tulis\n2. Notebook/buku catatan\n3. Air minum\n4. Semangat belajar! 😊',
+
+        // Kegiatan
+        'kegiatan': 'Kegiatan kami meliputi:\n1. Belajar bahasa Jepang dasar\n2. Mengenal budaya Jepang\n3. Nonton anime bersama\n4. Festival budaya Jepang\n5. Praktek conversation\n6. Games Jepang tradisional',
+        'materi apa saja': 'Materi pembelajaran meliputi:\n1. Hiragana & Katakana\n2. Kanji dasar\n3. Percakapan sehari-hari\n4. Budaya & etika Jepang\n5. Sejarah Jepang',
+
+        // Event
+        'event': 'Event tahunan kami:\n1. Japan Festival (JapanFest)\n2. Cosplay Competition\n3. Cooking Demo masakan Jepang\n4. Study Tour ke tempat Jepang\n5. Kompetisi Speech Bahasa Jepang',
+
+        // Fasilitas
+        'fasilitas': 'Fasilitas yang didapat:\n1. Modul pembelajaran\n2. Sertifikat keanggotaan\n3. Seragam klub\n4. Akses ke perpustakaan Jepang\n5. Kesempatan ikut kompetisi',
+
+        // Prestasi
+        'prestasi': 'Prestasi Japanese Club:\n1. Juara 1 Cosplay Competition 2024\n2. Best Performance Festival Budaya 2024\n3. Juara 2 Speech Contest Tingkat Provinsi\n4. Best Club Award 2024',
+
+        // Kontak
+        'kontak': 'Hubungi kami melalui:\nInstagram: @japanclub_1garut\nEmail: japanclub.1garut@gmail.com\nTelepon: 0821-1234-5678',
+        'sosmed': 'Follow media sosial kami:\nInstagram: @japanclub_1garut\nTikTok: @japanclub.1garut\nYouTube: Japanese Club SMKN 1 Garut',
+
+        // Ucapan Bahasa Jepang
+        'ohayou': 'おはようございます (Ohayou gozaimasu) artinya "Selamat pagi"',
+        'konnichiwa': 'こんにちは (Konnichiwa) artinya "Selamat siang"',
+        'konbanwa': 'こんばんは (Konbanwa) artinya "Selamat malam"',
+        'arigatou': 'ありがとうございます (Arigatou gozaimasu) artinya "Terima kasih"',
+
+        // Response untuk input tidak sesuai
+        'default': 'Gomenasai 🙏 Saya belum bisa menjawab pertanyaan itu. Silakan tanyakan hal lain atau hubungi kami di Instagram @japanclub_1garut'
+    };
+
+    // Toggle chat
+    aiToggle.addEventListener('click', () => {
+        aiChat.classList.add('active');
+    });
+
+    closeAi.addEventListener('click', () => {
+        aiChat.classList.remove('active');
+    });
+
+    // Handle sending messages
+    function sendMessage() {
+        const message = aiInput.value.trim().toLowerCase();
+        if (!message) return;
+
+        // Add user message
+        addMessage(aiInput.value, 'user');
+        aiInput.value = '';
+
+        // Find best matching response
+        let bestMatch = findBestMatch(message);
+        setTimeout(() => {
+            addMessage(bestMatch, 'ai');
+        }, 500);
+    }
+
+    // Handle suggestion chips
+    document.querySelectorAll('.chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const query = chip.getAttribute('data-query');
+            aiInput.value = query;
+            sendMessage();
+        });
+    });
+
+    aiSend.addEventListener('click', sendMessage);
+    aiInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    function addMessage(text, type) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${type}`;
+        messageDiv.textContent = text;
+        aiMessages.appendChild(messageDiv);
+        aiMessages.scrollTop = aiMessages.scrollHeight;
+    }
+
+    function findBestMatch(query) {
+        let bestMatch = 'Maaf, saya belum bisa menjawab pertanyaan itu. Silakan tanyakan hal lain atau hubungi kami melalui Instagram @japanclub_1garut';
+        let highestScore = 0;
+
+        for (let [key, value] of Object.entries(qaDatabase)) {
+            let score = similarity(query, key);
+            if (score > highestScore && score > 0.3) {
+                highestScore = score;
+                bestMatch = value;
+            }
+        }
+
+        return bestMatch;
+    }
+
+    function similarity(s1, s2) {
+        let longer = s1.length > s2.length ? s1 : s2;
+        let shorter = s1.length > s2.length ? s2 : s1;
+
+        if (longer.includes(shorter)) return 0.8;
+
+        let words1 = s1.split(' ');
+        let words2 = s2.split(' ');
+        let matches = 0;
+
+        words1.forEach(w1 => {
+            words2.forEach(w2 => {
+                if (w1 === w2) matches++;
+            });
+        });
+
+        return matches / Math.max(words1.length, words2.length);
+    }
+});
+</script>
 
 <style>
 .floating-social {
