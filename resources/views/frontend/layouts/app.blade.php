@@ -83,7 +83,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, #E73121, #E73121);
+            background: linear-gradient(135deg, #b71c1c, #b71c1c);
             color: white;
             padding: 6rem 2rem;
             text-align: center;
