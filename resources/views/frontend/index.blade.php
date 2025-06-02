@@ -955,7 +955,7 @@
             <p class="lead mb-4 text-muted">Mari bergabung dan kembangkan bakatmu bersama kami!</p>
             <div class="d-flex justify-content-center gap-3">
                 <a href="#ekskul-section" class="btn btn-primary btn-lg px-4">
-                    <i class="fas fa-info-circle me-2"></i>Pelajari Lebih Lanjut
+                  
                 </a>
 
             </div>

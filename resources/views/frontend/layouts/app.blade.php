@@ -53,7 +53,7 @@
         }
 
         .navbar {
-            background: linear-gradient(90deg, #fd0d0d, #f21010);
+            background: linear-gradient(90deg, #E73121, #E73121);
             padding-top: 0.8rem;
             padding-bottom: 0.8rem;
             transition: all 0.3s ease;
@@ -63,7 +63,7 @@
         .navbar.scrolled {
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
-            background: rgba(253, 13, 13, 0.95);
+            background: rgba(245, 0, 0, 0.95);
             backdrop-filter: blur(10px);
         }
 
@@ -83,11 +83,11 @@
         }
 
         header {
-            background: linear-gradient(135deg, #fd0d0d, #f21010);
+            background: linear-gradient(135deg, #E73121, #E73121);
             color: white;
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 20px rgba(255, 99, 99, 0.15);
             margin-bottom: 3rem;
             position: relative;
             overflow: hidden;
@@ -101,7 +101,7 @@
             right: 0;
             bottom: 0;
             background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
-            opacity: 0.7;
+            opacity: 0.4;
         }
 
         header .header-content {
@@ -112,30 +112,43 @@
         }
 
         header img {
-            height: 120px;
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
-            animation: float 3s ease-in-out infinite;
+            height: 140px;
+            margin-bottom: 2.5rem;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+            animation: float 4s ease-in-out infinite;
         }
 
         header h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            background: linear-gradient(45deg, #fff, rgba(255, 255, 255, 0.9));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s infinite linear;
         }
 
         header p {
             font-size: 1.25rem;
-            opacity: 0.9;
+            opacity: 0.95;
             max-width: 600px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-weight: 400;
         }
 
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-15px); }
             100% { transform: translateY(0px); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
 
         footer {
@@ -315,9 +328,9 @@
             <!-- Menu Navigasi -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto fw-semibold">
+                      <li class="nav-item"><a class="nav-link text-white" href="#daftar-pembina-section"><i class="fas fa-chalkboard-teacher me-1"></i>Pembina</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#anggota-section"><i class="fas fa-users me-1"></i>Anggota</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#daftar-pembina-section"><i class="fas fa-chalkboard-teacher me-1"></i>Pembina</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#ekskul-section"><i class="fas fa-dumbbell me-1"></i>Ekskul</a></li>
+                      <li class="nav-item"><a class="nav-link text-white" href="#ekskul-section"><i class="fas fa-dumbbell me-1"></i>Ekskul</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#daftar-kegiatan-section"><i class="fas fa-calendar-alt me-1"></i>Kegiatan</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -341,9 +354,9 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <img src="{{ asset('/img/logo-sekolah.png') }}" alt="Logo Sekolah">
-            <h1 class="fw-bold">Website Ekstrakurikuler Sekolah</h1>
-            <p class="lead">Temukan informasi lengkap tentang kegiatan dan anggota ekstrakurikuler kami.</p>
+            <img src="{{ asset('/img/logo-sekolah.png') }}" alt="Logo Sekolah" class="logo">
+            <h1>Selamat Datang di Japanese Club</h1>
+            <p>Temukan dan Jelajahi Berbagai Kegiatan Ekstrakurikuler Kami</p>
         </div>
     </header>
 
