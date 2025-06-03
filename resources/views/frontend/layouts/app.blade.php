@@ -53,7 +53,7 @@
         }
 
         .navbar {
-            background: linear-gradient(90deg, #E73121, #E73121);
+            background: linear-gradient(90deg, #b71c1c, #F84241);
             padding-top: 0.8rem;
             padding-bottom: 0.8rem;
             transition: all 0.3s ease;
@@ -83,7 +83,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, #b71c1c, #b71c1c);
+            background: linear-gradient(135deg, #b71c1c, #F84241);
             color: white;
             padding: 6rem 2rem;
             text-align: center;
@@ -328,9 +328,9 @@
             <!-- Menu Navigasi -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto fw-semibold">
+                      <li class="nav-item"><a class="nav-link text-white" href="#ekskul-section"><i class="fas fa-dumbbell me-1"></i>Ekskul</a></li>
                       <li class="nav-item"><a class="nav-link text-white" href="#daftar-pembina-section"><i class="fas fa-chalkboard-teacher me-1"></i>Pembina</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#anggota-section"><i class="fas fa-users me-1"></i>Anggota</a></li>
-                      <li class="nav-item"><a class="nav-link text-white" href="#ekskul-section"><i class="fas fa-dumbbell me-1"></i>Ekskul</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="#daftar-kegiatan-section"><i class="fas fa-calendar-alt me-1"></i>Kegiatan</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
