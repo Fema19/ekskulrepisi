@@ -11,7 +11,12 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        return view('frontend.index');
+        $ekskul = Ekskul::all();
+        $pembina = Pembina::with('ekskul')->get();
+        $anggota = Anggota::with(['ekskul', 'jabatan'])->get();
+        $kegiatan = Kegiatan::with('ekskul')->get();
+        
+        return view('frontend.index', compact('ekskul', 'pembina', 'anggota', 'kegiatan'));
     }
 
     public function showEkskul()
