@@ -2,56 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
 use App\Models\Ekskul;
-use App\Models\Kegiatan;
 use App\Models\Pembina;
-use Illuminate\Http\Request;
+use App\Models\Anggota;
+use App\Models\Kegiatan;
 
-class FrontEndController extends Controller
+class FrontendController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        try {
-            // Tangkap query parameter 'generasi' dari URL, bisa null
-            $selectedGenerasi = $request->query('generasi');
+        return view('frontend.index');
+    }
 
-            // Ambil anggota, filter berdasarkan generasi jika ada
-            $anggota = Anggota::with(['ekskul', 'jabatan'])
-                ->when($selectedGenerasi, function ($query, $selectedGenerasi) {
-                    return $query->where('generasi', $selectedGenerasi);
-                })
-                ->orderBy('generasi')
-                ->get();
+    public function showEkskul()
+    {
+        $ekskul = Ekskul::all();
+        return view('frontend.ekskul', compact('ekskul'));
+    }
 
-            // Group anggota by generasi
-            $groupedAnggota = $anggota->groupBy('generasi');
+    public function showPembina()
+    {
+        $pembina = Pembina::with('ekskul')->get();
+        return view('frontend.pembina', compact('pembina'));
+    }
 
-            // Ambil daftar generasi unik dari anggota untuk dropdown filter
-            $generasiList = $anggota->pluck('generasi')->unique()->sort()->values();
+    public function showAnggota()
+    {
+        $anggota = Anggota::with(['ekskul', 'jabatan'])->get();
+        return view('frontend.anggota', compact('anggota'));
+    }
 
-            // Ambil data lain
-            $ekskul = Ekskul::all();
-            $pembina = Pembina::with('ekskul')->get();
-            $kegiatan = Kegiatan::all();
-
-            // Kirim semua data ke view, termasuk groupedAnggota dan anggota
-            return view('frontend.index', compact('anggota', 'groupedAnggota', 'ekskul', 'pembina', 'kegiatan', 'generasiList', 'selectedGenerasi'));
-
-        } catch (\Exception $e) {
-            // Log error jika diperlukan
-            \Log::error('Error in FrontEndController@index: ' . $e->getMessage());
-
-            // Return view dengan data kosong jika terjadi error
-            return view('frontend.index', [
-                'anggota' => collect([]),
-                'groupedAnggota' => collect([]),
-                'ekskul' => collect([]),
-                'pembina' => collect([]),
-                'kegiatan' => collect([]),
-                'generasiList' => collect([]),
-                'selectedGenerasi' => null
-            ]);
-        }
+    public function showKegiatan()
+    {
+        $kegiatan = Kegiatan::with('ekskul')->get();
+        return view('frontend.kegiatan', compact('kegiatan'));
     }
 }

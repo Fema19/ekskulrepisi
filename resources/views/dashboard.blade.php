@@ -190,11 +190,11 @@
                                                                     <div class="me-3">
                                                                         @if($anggota->foto_profil)
                                                                             <img src="{{ asset('storage/' . $anggota->foto_profil) }}"
-                                                                                 class="rounded-circle border border-2 border-white shadow-sm"
+                                                                                 class="rounded-circle border-2 border-white shadow-sm"
                                                                                  style="width: 45px; height: 45px; object-fit: cover;"
                                                                                  alt="{{ $anggota->nama_anggota }}">
                                                                         @else
-                                                                            <div class="rounded-circle {{ $loop->parent->parent->first ? 'bg-white text-primary' : 'bg-primary bg-opacity-10 text-primary' }} d-flex align-items-center justify-content-center border border-2 border-white shadow-sm"
+                                                                            <div class="rounded-circle {{ $loop->parent->parent->first ? 'bg-white text-primary' : 'bg-primary bg-opacity-10 text-primary' }} d-flex align-items-center justify-content-center  border-2 border-white shadow-sm"
                                                                                  style="width: 45px; height: 45px;">
                                                                                 <i class="bi bi-person-fill"></i>
                                                                             </div>
@@ -275,11 +275,11 @@
                                                                                 <div class="me-3">
                                                                                     @if($anggota->foto_profil)
                                                                                         <img src="{{ asset('storage/' . $anggota->foto_profil) }}"
-                                                                                             class="rounded-circle border border-2 border-white shadow-sm"
+                                                                                             class="rounded-circle  border-2 border-white shadow-sm"
                                                                                              style="width: 50px; height: 50px; object-fit: cover;"
                                                                                              alt="{{ $anggota->nama_anggota }}">
                                                                                     @else
-                                                                                        <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center border border-2 border-white shadow-sm"
+                                                                                        <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center  border-2 border-white shadow-sm"
                                                                                              style="width: 50px; height: 50px;">
                                                                                             <i class="bi bi-person-fill text-primary"></i>
                                                                                         </div>

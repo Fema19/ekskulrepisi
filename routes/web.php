@@ -5,7 +5,7 @@ use App\Http\Controllers\EkskulController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PembinaController;
-use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\DashboardController; // ← Controller Dashboard
 use Illuminate\Support\Facades\Route;
@@ -22,7 +22,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Halaman Utama (Frontend)
-Route::get('/', [FrontEndController::class, 'index'])->name('frontend');
+Route::get('/', [FrontendController::class, 'index'])->name('frontend');
+// Halaman Publik (Frontend)
+Route::get('/ekskul', [FrontendController::class, 'showEkskul'])->name('frontend.ekskul');
+Route::get('/pembina', [FrontendController::class, 'showPembina'])->name('frontend.pembina');
+Route::get('/anggota', [FrontendController::class, 'showAnggota'])->name('frontend.anggota');
+Route::get('/kegiatan', [FrontendController::class, 'showKegiatan'])->name('frontend.kegiatan');
+
 
 // Login & Logout
 Route::get('/sesi', [SessionController::class, 'index'])->name('login');
