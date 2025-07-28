@@ -5,7 +5,7 @@
         <h1 class="text-3xl font-bold text-center mb-8">Sistem Informasi Ekstrakurikuler</h1>
 
         <!-- Ekstrakurikuler Section -->
-        <section class="mb-8">
+        <section id="ekskuls" class="mb-8">
             <h2 class="text-2xl font-bold mb-4">Daftar Ekstrakurikuler</h2>
             <div class="row">
                 @foreach ($ekskul as $item)
@@ -25,7 +25,7 @@
         </section>
 
         <!-- Pembina Section -->
-        <section class="mb-8">
+        <section id="pembina" class="mb-8">
             <h2 class="text-2xl font-bold mb-4">Pembina Ekstrakurikuler</h2>
             <div class="row">
                 @foreach ($pembina as $item)
@@ -48,7 +48,7 @@
         </section>
 
         <!-- Anggota Section -->
-        <section class="mb-8">
+        <section id="anggota" class="mb-8">
             <h2 class="text-2xl font-bold mb-4">Anggota Ekstrakurikuler</h2>
             <div class="table-responsive">
                 <table class="table table-bordered table-striped">
@@ -81,7 +81,7 @@
         </section>
 
         <!-- Kegiatan Section -->
-        <section class="mb-8">
+        <section id="kegiatan" class="mb-8">
             <h2 class="text-2xl font-bold mb-4">Kegiatan Ekstrakurikuler</h2>
             <div class="row">
                 @foreach ($kegiatan as $item)
