@@ -1,40 +1,43 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     min-height: 100vh;
-    background:
-        linear-gradient(135deg, #fef4f8 0%, #ffe0eb 100%),
-        url('data:image/svg+xml;utf8,<svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 80 Q80 120 160 80 T320 80 V120 H0 Z" fill="%23ffb6d5" fill-opacity="0.10"/><path d="M0 100 Q80 140 160 100 T320 100 V120 H0 Z" fill="%23ffb6d5" fill-opacity="0.06"/></svg>') repeat-x;
-    background-size: cover, 1000px 120px;
+    background: linear-gradient(135deg, #f9f9f9 0%, #ececec 100%);
     font-family: 'Poppins', Arial, sans-serif;
     color: #333;
     overflow-x: hidden;
 }
 
+/* Navbar */
 .navbar {
-    background: linear-gradient(90deg, #ff6b8a 0%, #c9184a 100%);
-    border-radius: 0 0 24px 24px;
-    box-shadow: 0 4px 16px rgba(201, 24, 74, 0.12);
+    background: linear-gradient(90deg, #8B0000 0%, #B22222 100%);
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 4px 16px rgba(139, 0, 0, 0.2);
 }
 
 .navbar-brand {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Georgia', serif;
     font-size: 2rem;
     color: #fff !important;
-    letter-spacing: 1.5px;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+    letter-spacing: 1.2px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .nav-link {
     color: #fff !important;
     font-weight: 500;
-    margin-right: 1.2rem;
+    margin-right: 1rem;
     transition: all 0.2s ease-in-out;
 }
 
 .nav-link:hover {
-    color: #ffe3ed !important;
-    text-shadow: 0 0 5px #c9184a;
+    color: #ffcccc !important;
+    text-shadow: 0 0 4px #800000;
 }
 
+/* Container & Section */
 .container {
     margin-top: 40px;
     margin-bottom: 40px;
@@ -42,36 +45,51 @@ body {
 }
 
 section {
-    padding: 3.5rem 0;
-    border-bottom: 1px solid #f7cdd9;
+    padding: 3rem 0;
+    border-bottom: 1px solid #ddd;
 }
 
 section:last-of-type {
     border-bottom: none;
 }
 
-h2 {
-    font-size: 1.8rem;
+/* Typography */
+h1, .display-4 {
+    color: #8B0000;
+    font-family: 'Georgia', serif;
+}
+
+.section-title {
+    font-size: 2rem;
     font-weight: 600;
-    color: #c9184a;
+    color: #8B0000;
+    text-align: center;
     margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #800000;
+    margin-bottom: 1.5rem;
     text-align: center;
 }
 
+/* Card */
 .card {
     border: none;
-    border-radius: 16px;
-    box-shadow: 0 6px 20px rgba(255, 105, 135, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(128, 0, 0, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 28px rgba(255, 105, 135, 0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(128, 0, 0, 0.15);
 }
 
 .card-img-top {
-    border-radius: 16px 16px 0 0;
+    border-radius: 12px 12px 0 0;
     max-height: 180px;
     object-fit: cover;
 }
@@ -81,9 +99,9 @@ h2 {
 }
 
 .card-title {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    color: #b31217;
+    color: #800000;
 }
 
 .card-text {
@@ -91,17 +109,7 @@ h2 {
     line-height: 1.5;
 }
 
-.footer {
-    background: linear-gradient(90deg, #ff6b8a 0%, #c9184a 100%);
-    color: #fff;
-    border-radius: 30px 30px 0 0;
-    text-align: center;
-    padding: 18px 0 10px 0;
-    font-size: 1rem;
-    font-family: 'Poppins', Arial, sans-serif;
-    box-shadow: 0 -4px 12px rgba(201, 24, 74, 0.1);
-}
-
+/* Table */
 .table {
     background-color: #fff;
     border-radius: 10px;
@@ -109,8 +117,8 @@ h2 {
 }
 
 .table th {
-    background-color: #ffc4d6;
-    color: #861b33;
+    background-color: #d70000;
+    color: #fff;
     font-weight: 600;
 }
 
@@ -118,6 +126,19 @@ h2 {
     background-color: #fff;
 }
 
+/* Footer */
+.footer {
+    background: linear-gradient(90deg, #8B0000 0%, #B22222 100%);
+    color: #fff;
+    border-radius: 20px 20px 0 0;
+    text-align: center;
+    padding: 16px 0 10px 0;
+    font-size: 1rem;
+    font-family: 'Poppins', Arial, sans-serif;
+    box-shadow: 0 -4px 12px rgba(128, 0, 0, 0.1);
+}
+
+/* Responsive */
 @media (max-width: 992px) {
     .container { max-width: 95vw; }
 }
