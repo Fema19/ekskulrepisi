@@ -24,10 +24,6 @@ use Illuminate\Support\Facades\Route;
 // Halaman Utama (Frontend)
 Route::get('/', [FrontendController::class, 'index'])->name('frontend');
 // Halaman Publik (Frontend)
-Route::get('/ekskuls', [FrontendController::class, 'showEkskul'])->name('frontend.ekskul');
-Route::get('/pembina', [FrontendController::class, 'showPembina'])->name('frontend.pembina');
-Route::get('/anggota', [FrontendController::class, 'showAnggota'])->name('frontend.anggota');
-Route::get('/kegiatan', [FrontendController::class, 'showKegiatan'])->name('frontend.kegiatan');
 
 
 // Login & Logout
