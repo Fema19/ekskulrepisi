@@ -1,5 +1,4 @@
 <section id="pembina" class="mb-16">
-    <h2 class="text-2xl font-bold mb-4">Pembina Ekstrakurikuler</h2>
     <div class="row">
         @foreach ($pembina as $item)
             <div class="col-md-4 mb-4">

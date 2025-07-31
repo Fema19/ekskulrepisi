@@ -10,20 +10,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-       Schema::create('ekskuls', function (Blueprint $table) {
-    $table->id(); // unsignedBigInteger dan primary
-    $table->string('nama_ekskul');
-    $table->text('deskripsi')->nullable();
-    $table->string('logo')->nullable();
-    $table->timestamps();
-});
-
-    }
-
-
-
+   public function up(): void
+{
+    Schema::create('ekskuls', function (Blueprint $table) {
+        $table->id();
+        $table->string('nama_ekskul');
+        $table->text('deskripsi')->nullable();
+        $table->string('logo')->nullable();
+        $table->year('tahun_dibentuk')->nullable();
+        $table->text('visi')->nullable();
+        $table->text('misi')->nullable();
+        $table->timestamps();
+    });
+}
     /**
      * Reverse the migrations.
      */

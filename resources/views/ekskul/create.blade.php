@@ -13,10 +13,27 @@
                             <label>Nama Ekskul</label>
                             <input type="text" class="form-control" name="nama_ekskul" value="{{ old('nama_ekskul') }}">
                         </div>
+
                         <div class="form-group">
                             <label>Deskripsi</label>
                             <textarea class="form-control" name="deskripsi">{{ old('deskripsi') }}</textarea>
                         </div>
+
+                        <div class="form-group">
+                            <label>Tahun Dibentuk</label>
+                            <input type="number" class="form-control" name="tahun_dibentuk" value="{{ old('tahun_dibentuk') }}" placeholder="Contoh: 2020">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Visi</label>
+                            <textarea class="form-control" name="visi" rows="2">{{ old('visi') }}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Misi</label>
+                            <textarea class="form-control" name="misi" rows="3">{{ old('misi') }}</textarea>
+                        </div>
+
                         <div class="form-group">
                             <label>Logo (opsional)</label>
                             <input type="file" class="form-control" name="logo">

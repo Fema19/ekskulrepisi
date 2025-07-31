@@ -19,14 +19,14 @@
 
     <section id="pembina" class="py-5 bg-light">
         <div class="container">
-            <h2 class="section-title mb-4">Pembina Ekskul</h2>
+            <h2 class="section-title mb-4">Pembina Ekstrakurikuler</h2>
             @include('frontend.sections.pembina')
         </div>
     </section>
 
     <section id="anggota" class="py-5">
         <div class="container">
-            <h2 class="section-title mb-4">Anggota Aktif</h2>
+            <h2 class="section-title mb-4">Anggota Ekstrakurikuler</h2>
             @include('frontend.sections.anggota')
         </div>
     </section>

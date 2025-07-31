@@ -11,6 +11,7 @@
 
 </head>
 <body>
+    
     <!-- Sakura petal effect removed -->
     <nav class="navbar navbar-expand-lg mb-4">
     <div class="container">

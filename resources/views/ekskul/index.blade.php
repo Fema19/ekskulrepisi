@@ -19,7 +19,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Ekskul</th>
+                                <th>Tahun</th>
                                 <th>Deskripsi</th>
+                                <th>Visi</th>
+                                <th>Misi</th>
                                 <th>Logo</th>
                                 <th>Aksi</th>
                             </tr>
@@ -30,7 +33,10 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $item->nama_ekskul }}</td>
+                                    <td>{{ $item->tahun_dibentuk }}</td>
                                     <td>{{ $item->deskripsi }}</td>
+                                    <td>{{ $item->visi }}</td>
+                                    <td>{{ $item->misi }}</td>
                                     <td>
                                         @if ($item->logo)
                                             <img src="{{ asset('storage/' . $item->logo) }}" width="50">

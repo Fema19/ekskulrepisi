@@ -1,5 +1,4 @@
 <section id="kegiatan" class="mb-16">
-    <h2 class="text-2xl font-bold mb-4">Kegiatan Ekstrakurikuler</h2>
     <div class="row">
         @foreach ($kegiatan as $item)
             <div class="col-md-6 mb-4">

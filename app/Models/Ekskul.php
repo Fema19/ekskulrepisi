@@ -8,15 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Ekskul extends Model
 {
     use HasFactory;
-    protected $table = 'ekskuls'; // Nama tabel
-    protected $fillable = ['nama_ekskul', 'deskripsi', 'logo'];
+    protected $table = 'ekskuls';
 
-       // Relasi ke tabel pembina
+    protected $fillable = [
+        'nama_ekskul',
+        'deskripsi',
+        'logo',
+        'tahun_dibentuk',
+        'visi',
+        'misi',
+    ];
+
     public function pembina()
     {
         return $this->hasMany(Pembina::class, 'id_ekskul');
     }
-    // Relasi ke tabel anggota
+
     public function anggota()
     {
         return $this->hasMany(Anggota::class, 'id_ekskul');
